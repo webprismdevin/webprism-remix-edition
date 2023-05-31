@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'AvenirNextLTPro-Regular';
+    src: url('../public/fonts/AvenirNextLTPro-Regular.otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'AvenirNextLTPro-Bold';
+    src: url('../public/fonts/AvenirNextLTPro-Bold.otf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100% - 3rem));
+    }
+}
+
+.scroll {
+    animation: scroll 30s linear infinite;
+}

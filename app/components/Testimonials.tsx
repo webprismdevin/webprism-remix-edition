@@ -8,15 +8,15 @@ import { sectionPadding, urlFor } from "~/routes/_index";
 export function Testimonials({ testimonials }) {
   const [[page, direction], setPage] = useState([0, 0]);
   const index = wrap(0, testimonials.length, page);
-//   const [delay, setDelay] = useState<number | null>(5000);
+  //   const [delay, setDelay] = useState<number | null>(5000);
 
   const paginate = (newDirection: number) => {
     setPage([page + newDirection, newDirection]);
   };
 
-//   useInterval(() => {
-//     paginate(1);
-//   }, delay);
+  //   useInterval(() => {
+  //     paginate(1);
+  //   }, delay);
 
   function handleNext() {
     paginate(1);
@@ -39,7 +39,7 @@ export function Testimonials({ testimonials }) {
               transition: { duration: 1, type: "tween" },
             }}
             exit={{ opacity: 0 }}
-            className="object-cover object-center relative aspect-video md:aspect-square shadow-md rounded overflow-hidden z-10"
+            className="object-cover object-center relative aspect-video md:aspect-square shadow-md rounded-xl overflow-hidden z-10"
             src={urlFor(testimonials[index].image).width(800).height(800).url()}
           />
           <motion.div
@@ -52,12 +52,14 @@ export function Testimonials({ testimonials }) {
             <PortableText value={testimonials[index].body} />
             <p className="font-heading text-lg">{testimonials[index].author}</p>
           </motion.div>
-          <button
-            onClick={handleNext}
-            className="md:absolute right-8 bottom-0 hover:scale-110 transition-transform duration-200"
-          >
-            next →
-          </button>
+          {testimonials.length > 1 && (
+            <button
+              onClick={handleNext}
+              className="md:absolute right-8 bottom-0 hover:scale-110 transition-transform duration-200"
+            >
+              next →
+            </button>
+          )}
         </motion.div>
       </AnimatePresence>
     </div>

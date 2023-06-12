@@ -3,7 +3,11 @@ import { useState } from "react";
 // import { useInterval } from "hooks/useInterval";
 import { AnimatePresence, motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
-import { sectionPadding, urlFor } from "~/routes/_index";
+import {
+  portableTextComponents,
+  sectionPadding,
+  urlFor,
+} from "~/routes/_index";
 
 export function Testimonials({ testimonials }) {
   const [[page, direction], setPage] = useState([0, 0]);
@@ -49,7 +53,10 @@ export function Testimonials({ testimonials }) {
             exit={{ x: 500, opacity: 0 }}
             key={page}
           >
-            <PortableText value={testimonials[index].body} />
+            <PortableText
+              components={portableTextComponents}
+              value={testimonials[index].body}
+            />
             <p className="font-heading text-lg">{testimonials[index].author}</p>
           </motion.div>
           {testimonials.length > 1 && (

@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/cards", "destination": "/" },
+    { "source": "/freedom-fatigues", "destination": "/pages/freedom-fatigues", "permanent": false },
+  ]
+}

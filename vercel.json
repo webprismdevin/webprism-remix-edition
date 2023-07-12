@@ -2,5 +2,6 @@
   "redirects": [
     { "source": "/cards", "destination": "/" },
     { "source": "/freedom-fatigues", "destination": "/pages/freedom-fatigues", "permanent": false }
+    { "source": "/discount", "destination": "https://shopify-discount-link-generator.webprism.co/"}
   ]
 }

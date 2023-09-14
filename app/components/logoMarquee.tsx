@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { urlFor } from "~/routes/_index";
+import { urlFor } from "~/lib/sanity";
 
 const random = () => Math.random().toString(36).substring(7);
 

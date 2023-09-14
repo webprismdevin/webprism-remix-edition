@@ -18,6 +18,30 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "BebasNeue-Regular";
+  src: url("../public/fonts/BebasNeue-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../public/fonts/Montserrat-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("../public/fonts/Montserrat-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @keyframes scroll {
   from {
     transform: translateX(0);
@@ -35,3 +59,4 @@
 .reverse {
   animation-direction: reverse;
 }
+

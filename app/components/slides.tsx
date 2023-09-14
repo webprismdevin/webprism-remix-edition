@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { wrap } from "@popmotion/popcorn";
 import { useState } from "react";
-import { urlFor } from "~/routes/_index";
+import { urlFor } from "~/lib/sanity";
 import { Link } from "@remix-run/react";
 
 export interface Slide {

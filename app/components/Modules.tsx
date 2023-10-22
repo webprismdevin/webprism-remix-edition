@@ -125,7 +125,20 @@ export function TextHero({ data }) {
         )}
       </div>
       <img
-        src={urlFor(data.image).url()}
+        //prettier-ignore
+        srcSet={`
+          ${urlFor(data.image).quality(60).width(320).format('webp').url()} 320w,
+          ${urlFor(data.image).quality(60).width(640).format('webp').url()} 640w,
+          ${urlFor(data.image).quality(60).width(768).format('webp').url()} 768w,
+          ${urlFor(data.image).quality(60).width(1024).format('webp').url()} 1024w,
+          ${urlFor(data.image).quality(60).width(1280).format('webp').url()} 1280w,
+          ${urlFor(data.image).quality(60).width(1536).format('webp').url()} 1536w,
+          ${urlFor(data.image).quality(60).width(1920).format('webp').url()} 1920w,
+          ${urlFor(data.image).quality(60).width(2560).format('webp').url()} 2560w,
+          ${urlFor(data.image).quality(60).width(3840).format('webp').url()} 3840w
+        `}
+        sizes={"100vw"}
+        src={urlFor(data.image).quality(90).format("webp").url()}
         className="object-cover absolute top-0 left-0 object-center h-full md:w-full md:aspect-video z-0"
       />
     </div>

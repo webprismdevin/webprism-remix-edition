@@ -7,7 +7,7 @@
   src: url("../public/fonts/AvenirNextLTPro-Regular.otf");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -15,7 +15,7 @@
   src: url("../public/fonts/AvenirNextLTPro-Bold.otf");
   font-weight: bold;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -23,7 +23,7 @@
   src: url("../public/fonts/BebasNeue-Regular.ttf");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -31,7 +31,7 @@
   src: url("../public/fonts/Montserrat-Medium.ttf");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -39,7 +39,7 @@
   src: url("../public/fonts/Montserrat-Bold.ttf");
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @keyframes scroll {

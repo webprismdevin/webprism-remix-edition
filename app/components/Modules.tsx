@@ -264,24 +264,33 @@ export function Columns({ columns, title, subtitle }) {
   return (
     <div className={`${sectionPadding}`}>
       <Heading>{title}</Heading>
-      <div
-        className={`grid grid-cols-1 ${columnCount()} md:gap-4 items-center`}
-      >
+      <div className={`grid grid-cols-1 ${columnCount()} md:gap-4 items-center`}>
         {columns.map((column) => {
           return (
             <div
               key={column._key}
-              className={`p-4 md:p-6 lg:p-8 max-w-prose mx-auto text-center leading-loose ${
+              className={`p-4 md:p-6 lg:p-8 relative max-w-prose mx-auto text-center grid place-items-center aspect-square ${
                 column.layout === "left" && "md:text-left"
               } ${column.layout === "right" && "md:text-right"}
                   ${column.layout === "center" && "md:text-center"}
                     `}
             >
-              <Heading>{column.title}</Heading>
-              <PortableText
-                components={portableTextComponents}
-                value={column.body}
+              <img
+                //prettier-ignore
+                src={urlFor(column.image).height(800).width(800).quality(90).format("webp").url()}
+                style={{ objectFit: "cover", objectPosition: "center" }}
+                className="absolute z-0 top-0 left-0 w-full h-full "
+                loading="lazy"
               />
+              <div className="relative z-10">
+                <h3 className="text-[2rem] font-heading leading-tight">
+                  {column.title}
+                </h3>
+                <PortableText
+                  components={portableTextComponents}
+                  value={column.body}
+                />
+              </div>
             </div>
           );
         })}

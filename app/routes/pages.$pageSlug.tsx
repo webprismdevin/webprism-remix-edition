@@ -1,6 +1,6 @@
 import { LoaderArgs, LoaderFunction } from "@remix-run/node";
 import { sanity, urlFor } from "../lib/sanity";
-import { Modules } from "./_index";
+import { Modules } from "~/components/Modules";
 import { V2_MetaFunction, useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = async ({

@@ -3,7 +3,7 @@ import { useState } from "react";
 // import { useInterval } from "hooks/useInterval";
 import { AnimatePresence, motion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
-import { portableTextComponents, sectionPadding } from "~/routes/_index";
+import { portableTextComponents, sectionPadding } from "~/components/Modules";
 import { urlFor } from "~/lib/sanity";
 
 export function Testimonials({ testimonials }) {

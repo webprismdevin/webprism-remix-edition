@@ -14,7 +14,7 @@ export default function PreviewProvider({
   return (
     <LiveQueryProvider client={client}>
       {children}
-      <ExitPreview />
+      {/* <ExitPreview /> */}
     </LiveQueryProvider>
   );
 }

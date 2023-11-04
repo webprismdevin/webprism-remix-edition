@@ -4,7 +4,10 @@ import Slides from "~/components/slides";
 import { LogoMarquee } from "~/components/logoMarquee";
 import { Testimonials } from "~/components/Testimonials";
 import { urlFor } from "~/lib/sanity";
-import { Button } from "~/components/Button";
+import { Button, buttonStyles } from "~/components/Button";
+import { SanityImageAssetDocument } from "@sanity/client";
+import { ReactNode } from "react";
+import { Link } from "@remix-run/react";
 
 export const sectionPadding = "p-6 py-12 md:p-12 lg:p-24";
 
@@ -12,8 +15,35 @@ export function Divider() {
   return <div className={`mx-6 md:mx-12 lg:mx-24 h-0.5 bg-white`} />;
 }
 
-export function Heading({ children }) {
-  return <h2 className="text-4xl font-heading">{children}</h2>;
+export function Heading({
+  children,
+  size,
+  className,
+}: {
+  children: ReactNode;
+  size?: "small" | "large" | "super";
+  className?: string;
+}) {
+  const mainHeadingStyles = "font-heading leading-tight";
+
+  switch (size) {
+    case "small":
+      return (
+        <h3
+          className={`${mainHeadingStyles} text-2xl md:text-4xl ${className}`}
+        >
+          {children}
+        </h3>
+      );
+    case "large":
+      return (
+        <h2
+          className={`${mainHeadingStyles} text-4xl md:text-6xl ${className}`}
+        >
+          {children}
+        </h2>
+      );
+  }
 }
 
 type BlockProps = {
@@ -98,14 +128,22 @@ export function Modules({ modules }) {
             return <Testimonials key={module._key} {...module} />;
           case "divider":
             return <Divider key={module._key} />;
-          // case "contact":
-          //   return <Contact key={module._key} {...module} />;
+          case "contact":
+            return <Contact key={module._key} {...module} />;
           default:
             return null;
         }
       })}
     </div>
   );
+}
+
+{
+  /*
+TODO
+- add size option to hero
+- remove blockIterator
+*/
 }
 
 export function TextHero({ data }) {
@@ -120,13 +158,15 @@ export function TextHero({ data }) {
       <div
         className={`${sectionPadding} relative flex flex-col justify-end items-start z-10 w-full h-full`}
       >
+        {/* this was dumb, rebuild to static-ish */}
         {data.blocks.map((block: BlockProps) =>
           blockIterator(block, data.colorTheme)
         )}
       </div>
-      <img
-        //prettier-ignore
-        srcSet={`
+      {data.image && (
+        <img
+          //prettier-ignore
+          srcSet={`
           ${urlFor(data.image).quality(60).width(320).format('webp').url()} 320w,
           ${urlFor(data.image).quality(60).width(640).format('webp').url()} 640w,
           ${urlFor(data.image).quality(60).width(768).format('webp').url()} 768w,
@@ -137,10 +177,11 @@ export function TextHero({ data }) {
           ${urlFor(data.image).quality(60).width(2560).format('webp').url()} 2560w,
           ${urlFor(data.image).quality(60).width(3840).format('webp').url()} 3840w
         `}
-        sizes={"100vw"}
-        src={urlFor(data.image).quality(90).format("webp").url()}
-        className="object-cover absolute top-0 left-0 object-center h-full md:w-full md:aspect-video z-0"
-      />
+          sizes={"100vw"}
+          src={urlFor(data.image).quality(90).format("webp").url()}
+          className="object-cover absolute top-0 left-0 object-center h-full w-full md:aspect-video z-0"
+        />
+      )}
     </div>
   );
 }
@@ -214,9 +255,9 @@ export function Statement({ title, subtitle, body, colorTheme }) {
     >
       <div className="md:px-20 md:py-[6.25rem]">
         <h2 className="font-heading text-heading md:text-super">{title}</h2>
+        <p className="text-title font-bold">{subtitle}</p>
       </div>
       <div className="max-w-prose md:px-20 md:py-[6.25rem]">
-        <p className="text-title font-bold">{subtitle}</p>
         <PortableText components={portableTextComponents} value={body} />
       </div>
     </div>
@@ -245,7 +286,12 @@ export function TextWithImage({ data, blocks }) {
   );
 }
 
-export function Columns({ columns, title, subtitle }) {
+export function Columns({ columns, title, subtitle, colorTheme }) {
+  const colorThemeStyles = {
+    background: colorTheme?.background?.hex,
+    color: colorTheme?.text?.hex,
+  };
+
   const columnCount = () => {
     switch (columns.length) {
       case 1:
@@ -262,18 +308,51 @@ export function Columns({ columns, title, subtitle }) {
   };
 
   return (
-    <div className={`${sectionPadding}`}>
-      <Heading>{title}</Heading>
-      <div className={`grid grid-cols-1 ${columnCount()} md:gap-4 items-center`}>
-        {columns.map((column) => {
+    <div className={`${sectionPadding}`} style={colorThemeStyles}>
+      <Heading size="large" className="text-center mb-8">
+        {title}
+      </Heading>
+      <div className={`grid grid-cols-1 ${columnCount()} gap-4 items-center`}>
+        {columns.map((column: Column) => {
+          const columnLayout = `
+            ${column.layout === "left" && "md:text-left"} 
+            ${column.layout === "right" && "md:text-right"}
+            ${column.layout === "center" && "md:text-center"}
+          `;
+
+          const columnColorTheme = {
+            background: column.colorTheme?.background?.hex,
+            color: column.colorTheme?.text?.hex,
+          };
+
+          if (!column.image?.link)
+            return (
+              <div
+                key={column._key}
+                style={columnColorTheme}
+                className={`w-full p-4 md:p-6 lg:p-8 relative max-w-prose mx-auto text-center grid place-items-center aspect-square ${columnLayout}`}
+              >
+                <img
+                  //prettier-ignore
+                  src={urlFor(column.image).height(800).width(800).quality(90).format("webp").url()}
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                  className="absolute z-0 top-0 left-0 w-full h-full "
+                  loading="lazy"
+                />
+                <div className="relative z-10">
+                  <Heading size="small" className="text-center text-shadow">
+                    {column.title}
+                  </Heading>
+                </div>
+              </div>
+            );
+
           return (
-            <div
+            <Link
+              to={column.image?.link}
               key={column._key}
-              className={`p-4 md:p-6 lg:p-8 relative max-w-prose mx-auto text-center grid place-items-center aspect-square ${
-                column.layout === "left" && "md:text-left"
-              } ${column.layout === "right" && "md:text-right"}
-                  ${column.layout === "center" && "md:text-center"}
-                    `}
+              style={columnColorTheme}
+              className={`w-full p-4 md:p-6 lg:p-8 relative max-w-prose mx-auto text-center grid place-items-center aspect-square ${columnLayout}`}
             >
               <img
                 //prettier-ignore
@@ -283,15 +362,11 @@ export function Columns({ columns, title, subtitle }) {
                 loading="lazy"
               />
               <div className="relative z-10">
-                <h3 className="text-[2rem] font-heading leading-tight">
+                <Heading size="small" className="text-center text-shadow">
                   {column.title}
-                </h3>
-                <PortableText
-                  components={portableTextComponents}
-                  value={column.body}
-                />
+                </Heading>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>
@@ -299,5 +374,147 @@ export function Columns({ columns, title, subtitle }) {
   );
 }
 
-export const inputStyle =
-  "w-full shadow-md p-2 rounded md:px-4 lg:px-4 bg-white/25 border-2 border-white focus:bg-white";
+// export const inputStyle =
+//   "w-full shadow-md p-2 rounded md:px-4 lg:px-4 bg-white/25 border-2 border-white focus:bg-white";
+
+export function Contact({
+  title,
+  subtitle,
+  fields,
+  colorTheme,
+  submit,
+}: {
+  title: string;
+  subtitle: string;
+  fields: [any];
+  colorTheme: ColorTheme;
+  submit: any;
+}) {
+  return (
+    <div
+      className={sectionPadding}
+      style={{
+        background: colorTheme?.background?.hex,
+        color: colorTheme?.text?.hex,
+      }}
+    >
+      <Heading size="large" className="mb-8">
+        {title}
+      </Heading>
+      <p className="text-title font-bold">{subtitle}</p>
+      <ContactForm fields={fields} submit={submit} colorTheme={colorTheme} />
+    </div>
+  );
+}
+
+export function ContactForm({ fields, submit, colorTheme }) {
+  const inputClass = "w-full border-b-2 p-2 md:px-4",
+    inputStyle = {
+      borderColor: colorTheme?.accent.hex,
+      background: "transparent",
+      color: colorTheme?.text.hex,
+      outlineColor: "transparent",
+      "outlineColor&:focus": {
+        outlineColor: colorTheme?.accent.hex,
+      },
+    };
+
+  return (
+    <form
+      className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-start"
+      action="https://submit-form.com/hF7Ye4Ew"
+    >
+      {fields.map((field) => {
+        switch (field.type) {
+          case "text":
+            return (
+              <input
+                style={inputStyle}
+                className={`col-span-1 ${inputClass}`}
+                type={field.type}
+                placeholder={field.label}
+                required={field.required ?? false}
+                name={field.label}
+              />
+            );
+          case "email":
+            return (
+              <input
+                style={inputStyle}
+                className={`col-span-1 ${inputClass}`}
+                type={field.type}
+                placeholder={field.label}
+                required={field.required ?? false}
+                name={field.label}
+              />
+            );
+          case "radio":
+            return (
+              <div className="flex gap-2 p-2 md:px-4">
+                <label htmlFor={field.label}>{field.label}</label>
+                {field.options.map((option) => (
+                  <label htmlFor={field.label}>
+                    <input
+                      type="radio"
+                      name={field.label}
+                      value={option.value}
+                    />
+                    <span className="pl-1">{option.label}</span>
+                  </label>
+                ))}
+              </div>
+            );
+          case "textarea":
+            return (
+              <textarea
+                style={inputStyle}
+                className={`col-span-1 md:col-span-2 ${inputClass}`}
+                placeholder={field.label}
+                rows={5}
+                required={field.required ?? false}
+                name={field.label}
+              />
+            );
+          case "select":
+            return (
+              <select className={inputClass} placeholder={field.placeholder} />
+            );
+        }
+      })}
+      <button
+        className={`${buttonStyles} items-center min-w-[150px]`}
+        type="submit"
+      >
+        {submit}
+      </button>
+    </form>
+  );
+}
+
+export type Column = {
+  _key: string;
+  _type: "column";
+  layout: "left" | "right" | "center";
+  title: string;
+  image: SanityImageAssetDocument & {
+    alt: string;
+    link: string;
+  };
+  colorTheme: ColorTheme;
+  body: any;
+};
+
+export type ColorTheme = {
+  accent: {
+    _type: "color";
+    hex: string;
+  };
+  background: {
+    _type: "color";
+    hex: string;
+  };
+  text: {
+    _type: "color";
+    hex: string;
+  };
+};

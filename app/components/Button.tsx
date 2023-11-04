@@ -7,6 +7,9 @@ export type ButtonProps = {
   colorTheme: any;
 };
 
+export const buttonStyles =
+  "mx-auto md:mx-0 rounded-full border p-5 font-heading text-cta flex flex-col justify-end text-center";
+
 export const Button = ({ children, url, variant, colorTheme }: ButtonProps) => {
   const variants = {
     hero: "my-[2.5rem]",
@@ -15,7 +18,7 @@ export const Button = ({ children, url, variant, colorTheme }: ButtonProps) => {
   return (
     <Link
       to={url}
-      className={`mx-auto md:mx-0 rounded-full border p-5 font-heading text-cta ${variants[variant]} flex flex-col justify-end`}
+      className={`${buttonStyles} ${variants[variant]}`}
       style={{
         color: colorTheme?.background?.hex,
         background: colorTheme?.text?.hex,

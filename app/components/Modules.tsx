@@ -109,7 +109,7 @@ export function Modules({ modules }) {
       {modules.map((module) => {
         switch (module._type) {
           case "textHero":
-            return <TextHero key={module._key} data={module} {...module} />;
+            return <TextHero key={module._key} {...module} />;
           case "statement":
             return <Statement key={module._key} {...module} />;
           case "hero":
@@ -130,6 +130,8 @@ export function Modules({ modules }) {
             return <Divider key={module._key} />;
           case "contact":
             return <Contact key={module._key} {...module} />;
+          case "richContent":
+            return <RichContent key={module._key} {...module} />;
           default:
             return null;
         }
@@ -146,39 +148,38 @@ TODO
 */
 }
 
-export function TextHero({ data }) {
+export function TextHero({ colorTheme, size, blocks, image }) {
   return (
     <div
-      className="relative h-screen-peak overflow-hidden"
+      className="relative overflow-hidden"
       style={{
-        background: data.colorTheme?.background?.hex,
-        color: data.colorTheme?.text?.hex,
+        background: colorTheme?.background?.hex,
+        color: colorTheme?.text?.hex,
+        height: size === "small" ? "500px" : "calc(100vh - 20px)",
       }}
     >
       <div
         className={`${sectionPadding} relative flex flex-col justify-end items-start z-10 w-full h-full`}
       >
         {/* this was dumb, rebuild to static-ish */}
-        {data.blocks.map((block: BlockProps) =>
-          blockIterator(block, data.colorTheme)
-        )}
+        {blocks.map((block: BlockProps) => blockIterator(block, colorTheme))}
       </div>
-      {data.image && (
+      {image && (
         <img
           //prettier-ignore
           srcSet={`
-          ${urlFor(data.image).quality(60).width(320).format('webp').url()} 320w,
-          ${urlFor(data.image).quality(60).width(640).format('webp').url()} 640w,
-          ${urlFor(data.image).quality(60).width(768).format('webp').url()} 768w,
-          ${urlFor(data.image).quality(60).width(1024).format('webp').url()} 1024w,
-          ${urlFor(data.image).quality(60).width(1280).format('webp').url()} 1280w,
-          ${urlFor(data.image).quality(60).width(1536).format('webp').url()} 1536w,
-          ${urlFor(data.image).quality(60).width(1920).format('webp').url()} 1920w,
-          ${urlFor(data.image).quality(60).width(2560).format('webp').url()} 2560w,
-          ${urlFor(data.image).quality(60).width(3840).format('webp').url()} 3840w
+          ${urlFor(image).quality(60).width(320).format('webp').url()} 320w,
+          ${urlFor(image).quality(60).width(640).format('webp').url()} 640w,
+          ${urlFor(image).quality(60).width(768).format('webp').url()} 768w,
+          ${urlFor(image).quality(60).width(1024).format('webp').url()} 1024w,
+          ${urlFor(image).quality(60).width(1280).format('webp').url()} 1280w,
+          ${urlFor(image).quality(60).width(1536).format('webp').url()} 1536w,
+          ${urlFor(image).quality(60).width(1920).format('webp').url()} 1920w,
+          ${urlFor(image).quality(60).width(2560).format('webp').url()} 2560w,
+          ${urlFor(image).quality(60).width(3840).format('webp').url()} 3840w
         `}
           sizes={"100vw"}
-          src={urlFor(data.image).quality(90).format("webp").url()}
+          src={urlFor(image).quality(90).format("webp").url()}
           className="object-cover absolute top-0 left-0 object-center h-full w-full md:aspect-video z-0"
         />
       )}
@@ -493,6 +494,22 @@ export function ContactForm({ fields, submit, colorTheme }) {
         {submit}
       </button>
     </form>
+  );
+}
+
+export function RichContent({ body, colorTheme }) {
+  return (
+    <div
+      className={sectionPadding}
+      style={{
+        color: colorTheme?.text?.hex ?? "#121212",
+        background: colorTheme?.background?.hex ?? "#fff",
+      }}
+    >
+      <div className="max-w-prose mx-auto">
+        <PortableText components={portableTextComponents} value={body} />
+      </div>
+    </div>
   );
 }
 

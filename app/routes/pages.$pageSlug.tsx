@@ -2,15 +2,14 @@ import { LoaderArgs, LoaderFunction } from "@remix-run/node";
 import { sanity, urlFor } from "../lib/sanity";
 import { Modules } from "~/components/Modules";
 import { V2_MetaFunction, useLoaderData } from "@remix-run/react";
+import { pageQuery } from "~/lib/queries";
 
 export const loader: LoaderFunction = async ({
   request,
   params,
   context,
 }: LoaderArgs) => {
-  const query = `*[_type == "page" && slug.current == $slug][0]`;
-
-  const data = await sanity.fetch(query, { slug: params.pageSlug });
+  const data = await sanity.fetch(pageQuery, { slug: params.pageSlug });
 
   return {
     data,
@@ -35,9 +34,5 @@ export const meta: V2_MetaFunction<typeof loader> = ({ data }) => {
 export default function Page() {
   const { data } = useLoaderData<typeof loader>();
 
-  return (
-    <div>
-      <Modules modules={data.modules} />
-    </div>
-  );
+  return <Modules modules={data.modules} />;
 }

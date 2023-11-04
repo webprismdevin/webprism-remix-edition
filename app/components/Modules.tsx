@@ -384,12 +384,14 @@ export function Contact({
   fields,
   colorTheme,
   submit,
+  redirect,
 }: {
   title: string;
   subtitle: string;
   fields: [any];
   colorTheme: ColorTheme;
   submit: any;
+  redirect?: string;
 }) {
   return (
     <div
@@ -401,12 +403,12 @@ export function Contact({
     >
       <Heading size="large">{title}</Heading>
       <p className="text-title font-bold mb-8">{subtitle}</p>
-      <ContactForm fields={fields} submit={submit} colorTheme={colorTheme} />
+      <ContactForm fields={fields} submit={submit} colorTheme={colorTheme} redirect={redirect ?? null} />
     </div>
   );
 }
 
-export function ContactForm({ fields, submit, colorTheme }) {
+export function ContactForm({ fields, submit, colorTheme, redirect }) {
   const inputClass = "w-full border-b-2 p-2 md:px-4",
     inputStyle = {
       borderColor: colorTheme?.accent.hex,
@@ -423,7 +425,8 @@ export function ContactForm({ fields, submit, colorTheme }) {
       className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-start"
       action="https://submit-form.com/hF7Ye4Ew"
     >
-      {fields.map((field) => {
+      {redirect && <input type="hidden" name="_redirect" value={redirect} />}
+      {fields.map((field:any) => {
         switch (field.type) {
           case "text":
             return (
@@ -453,7 +456,7 @@ export function ContactForm({ fields, submit, colorTheme }) {
             return (
               <div className="flex gap-2 p-2 md:px-4" key={field._key}>
                 <label htmlFor={field.label}>{field.label}</label>
-                {field.options.map((option) => (
+                {field.options.map((option:any) => (
                   <label key={option._key} htmlFor={field.label}>
                     <input
                       type="radio"

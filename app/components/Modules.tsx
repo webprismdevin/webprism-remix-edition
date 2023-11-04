@@ -398,10 +398,8 @@ export function Contact({
         color: colorTheme?.text?.hex,
       }}
     >
-      <Heading size="large" className="mb-8">
-        {title}
-      </Heading>
-      <p className="text-title font-bold">{subtitle}</p>
+      <Heading size="large">{title}</Heading>
+      <p className="text-title font-bold mb-8">{subtitle}</p>
       <ContactForm fields={fields} submit={submit} colorTheme={colorTheme} />
     </div>
   );
@@ -429,6 +427,7 @@ export function ContactForm({ fields, submit, colorTheme }) {
           case "text":
             return (
               <input
+                key={field._key}
                 style={inputStyle}
                 className={`col-span-1 ${inputClass}`}
                 type={field.type}
@@ -440,6 +439,7 @@ export function ContactForm({ fields, submit, colorTheme }) {
           case "email":
             return (
               <input
+                key={field._key}
                 style={inputStyle}
                 className={`col-span-1 ${inputClass}`}
                 type={field.type}
@@ -450,10 +450,10 @@ export function ContactForm({ fields, submit, colorTheme }) {
             );
           case "radio":
             return (
-              <div className="flex gap-2 p-2 md:px-4">
+              <div className="flex gap-2 p-2 md:px-4" key={field._key}>
                 <label htmlFor={field.label}>{field.label}</label>
                 {field.options.map((option) => (
-                  <label htmlFor={field.label}>
+                  <label key={option._key} htmlFor={field.label}>
                     <input
                       type="radio"
                       name={field.label}
@@ -467,6 +467,7 @@ export function ContactForm({ fields, submit, colorTheme }) {
           case "textarea":
             return (
               <textarea
+                key={field._key}
                 style={inputStyle}
                 className={`col-span-1 md:col-span-2 ${inputClass}`}
                 placeholder={field.label}
@@ -477,7 +478,11 @@ export function ContactForm({ fields, submit, colorTheme }) {
             );
           case "select":
             return (
-              <select className={inputClass} placeholder={field.placeholder} />
+              <select
+                key={field._key}
+                className={inputClass}
+                placeholder={field.placeholder}
+              />
             );
         }
       })}

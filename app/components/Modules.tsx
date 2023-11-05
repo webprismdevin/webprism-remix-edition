@@ -29,17 +29,13 @@ export function Heading({
   switch (size) {
     case "small":
       return (
-        <h3
-          className={`${mainHeadingStyles} text-4xl ${className}`}
-        >
+        <h3 className={`${mainHeadingStyles} text-4xl ${className}`}>
           {children}
         </h3>
       );
     case "large":
       return (
-        <h2
-          className={`${mainHeadingStyles} text-6xl ${className}`}
-        >
+        <h2 className={`${mainHeadingStyles} text-6xl ${className}`}>
           {children}
         </h2>
       );
@@ -243,7 +239,9 @@ export function Statement({ title, subtitle, body, colorTheme }: any) {
       className="grid grid-cols-1 md:grid-cols-2 px-5 py-[3.75rem]"
     >
       <div className="md:px-20 md:py-[6.25rem]">
-        <h2 className="font-heading text-heading md:text-super leading-tight">{title}</h2>
+        <h2 className="font-heading text-heading md:text-super leading-tight">
+          {title}
+        </h2>
         <p className="text-title font-bold">{subtitle}</p>
       </div>
       <div className="max-w-prose md:px-20 md:py-[6.25rem]">
@@ -463,6 +461,9 @@ export function ContactForm({ fields, submit, colorTheme, redirect }: any) {
                 {field.options.map((option: any) => (
                   <label key={option._key} htmlFor={field.label}>
                     <input
+                      style={{
+                        accentColor: colorTheme?.accent.hex,
+                      }}
                       type="radio"
                       name={field.label}
                       value={option.value}
@@ -496,6 +497,9 @@ export function ContactForm({ fields, submit, colorTheme, redirect }: any) {
       })}
       <button
         className={`${buttonStyles} items-center min-w-[150px]`}
+        style={{
+          borderColor: colorTheme?.accent.hex,
+        }}
         type="submit"
       >
         {submit}

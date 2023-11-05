@@ -30,7 +30,7 @@ export function Heading({
     case "small":
       return (
         <h3
-          className={`${mainHeadingStyles} text-2xl md:text-4xl ${className}`}
+          className={`${mainHeadingStyles} text-4xl ${className}`}
         >
           {children}
         </h3>
@@ -38,7 +38,7 @@ export function Heading({
     case "large":
       return (
         <h2
-          className={`${mainHeadingStyles} text-4xl md:text-6xl ${className}`}
+          className={`${mainHeadingStyles} text-6xl ${className}`}
         >
           {children}
         </h2>
@@ -63,7 +63,7 @@ const blockIterator = (block: BlockProps, colorTheme: any) => {
           key={block._key}
           className={`font-heading ${
             block.style === "super" ? "text-super" : "text-heading"
-          } leading-[5.25rem] max-w-prose`}
+          } leading-tight max-w-prose text-shadow`}
           dangerouslySetInnerHTML={{
             __html: block.value,
           }}
@@ -103,35 +103,23 @@ const blockIterator = (block: BlockProps, colorTheme: any) => {
   }
 };
 
-export function Modules({ modules }) {
+export function Modules({ modules }: { modules: any[] }) {
   return (
     <div>
-      {modules.map((module) => {
+      {modules.map((module: any) => {
         switch (module._type) {
           case "textHero":
             return <TextHero key={module._key} {...module} />;
           case "statement":
             return <Statement key={module._key} {...module} />;
-          case "hero":
-            return <Hero key={module._key} {...module} />;
-          case "textWithImage":
-            return <TextWithImage key={module._key} {...module} />;
-          case "marquee":
-            return <Marquee key={module._key} {...module} />;
-          case "logoMarquee":
-            return <LogoMarquee key={module._key} {...module} />;
           case "slides":
             return <Slides key={module._key} {...module} />;
           case "columns":
             return <Columns key={module._key} {...module} />;
-          case "testimonials":
-            return <Testimonials key={module._key} {...module} />;
-          case "divider":
-            return <Divider key={module._key} />;
-          case "contact":
-            return <Contact key={module._key} {...module} />;
           case "richContent":
             return <RichContent key={module._key} {...module} />;
+          case "contact":
+            return <Contact key={module._key} {...module} />;
           default:
             return null;
         }
@@ -148,14 +136,14 @@ TODO
 */
 }
 
-export function TextHero({ colorTheme, size, blocks, image }) {
+export function TextHero({ colorTheme, size, blocks, image }: any) {
   return (
     <div
-      className="relative overflow-hidden"
+      className="relative overflow-hidden min-h-[625px]"
       style={{
         background: colorTheme?.background?.hex,
         color: colorTheme?.text?.hex,
-        height: size === "small" ? "500px" : "calc(100vh - 20px)",
+        height: size === "small" ? "625px" : "calc(100vh - 20px)",
       }}
     >
       <div
@@ -168,18 +156,18 @@ export function TextHero({ colorTheme, size, blocks, image }) {
         <img
           //prettier-ignore
           srcSet={`
-          ${urlFor(image).quality(60).width(320).format('webp').url()} 320w,
-          ${urlFor(image).quality(60).width(640).format('webp').url()} 640w,
-          ${urlFor(image).quality(60).width(768).format('webp').url()} 768w,
-          ${urlFor(image).quality(60).width(1024).format('webp').url()} 1024w,
-          ${urlFor(image).quality(60).width(1280).format('webp').url()} 1280w,
-          ${urlFor(image).quality(60).width(1536).format('webp').url()} 1536w,
-          ${urlFor(image).quality(60).width(1920).format('webp').url()} 1920w,
-          ${urlFor(image).quality(60).width(2560).format('webp').url()} 2560w,
-          ${urlFor(image).quality(60).width(3840).format('webp').url()} 3840w
+          ${urlFor(image).quality(80).width(320).format('webp').url()} 320w,
+          ${urlFor(image).quality(80).width(640).format('webp').url()} 640w,
+          ${urlFor(image).quality(80).width(768).format('webp').url()} 768w,
+          ${urlFor(image).quality(80).width(1024).format('webp').url()} 1024w,
+          ${urlFor(image).quality(80).width(1280).format('webp').url()} 1280w,
+          ${urlFor(image).quality(80).width(1536).format('webp').url()} 1536w,
+          ${urlFor(image).quality(80).width(1920).format('webp').url()} 1920w,
+          ${urlFor(image).quality(80).width(2560).format('webp').url()} 2560w,
+          ${urlFor(image).quality(80).width(3840).format('webp').url()} 3840w
         `}
           sizes={"100vw"}
-          src={urlFor(image).quality(90).format("webp").url()}
+          src={urlFor(image).quality(80).format("webp").url()}
           className="object-cover absolute top-0 left-0 object-center h-full w-full md:aspect-video z-0"
         />
       )}
@@ -188,22 +176,22 @@ export function TextHero({ colorTheme, size, blocks, image }) {
 }
 
 // not currently in use
-export function Hero({ title, subtitle, image }) {
-  return (
-    <div className="relative h-[500px] overflow-hidden">
-      <div
-        className={`${sectionPadding} relative flex flex-col justify-center items-start z-10 w-full h-full`}
-      >
-        <h1 className="font-heading">{title}</h1>
-        <h2 className="text-lg md:text-xl lg:text-2xl">{subtitle}</h2>
-      </div>
-      <img
-        src={urlFor(image).url()}
-        className="object-cover absolute top-0 left-0 object-center h-full md:w-full md:aspect-video z-0"
-      />
-    </div>
-  );
-}
+// export function Hero({ title, subtitle, image }) {
+//   return (
+//     <div className="relative h-[500px] overflow-hidden">
+//       <div
+//         className={`${sectionPadding} relative flex flex-col justify-center items-start z-10 w-full h-full`}
+//       >
+//         <h1 className="font-heading">{title}</h1>
+//         <h2 className="text-lg md:text-xl lg:text-2xl">{subtitle}</h2>
+//       </div>
+//       <img
+//         src={urlFor(image).url()}
+//         className="object-cover absolute top-0 left-0 object-center h-full md:w-full md:aspect-video z-0"
+//       />
+//     </div>
+//   );
+// }
 
 export const portableTextComponents: PortableTextComponents = {
   block: {
@@ -245,7 +233,7 @@ export const portableTextComponents: PortableTextComponents = {
   },
 };
 
-export function Statement({ title, subtitle, body, colorTheme }) {
+export function Statement({ title, subtitle, body, colorTheme }: any) {
   return (
     <div
       style={{
@@ -255,7 +243,7 @@ export function Statement({ title, subtitle, body, colorTheme }) {
       className="grid grid-cols-1 md:grid-cols-2 px-5 py-[3.75rem]"
     >
       <div className="md:px-20 md:py-[6.25rem]">
-        <h2 className="font-heading text-heading md:text-super">{title}</h2>
+        <h2 className="font-heading text-heading md:text-super leading-tight">{title}</h2>
         <p className="text-title font-bold">{subtitle}</p>
       </div>
       <div className="max-w-prose md:px-20 md:py-[6.25rem]">
@@ -265,29 +253,42 @@ export function Statement({ title, subtitle, body, colorTheme }) {
   );
 }
 
-export function TextWithImage({ data, blocks }) {
+export function Grid({}) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2">
-      <div
-        className={`${sectionPadding} grid place-items-center ${
-          data?.layout === "left" && "order-2"
-        }`}
-      >
-        {blocks.map((block: BlockProps) =>
-          blockIterator(block, data.colorTheme)
-        )}
+    <div className="grid grid-cols-2 md:grid-cols-3">
+      <div className="col-span-2 md:col-span-3">
+        <Heading size="large" className="text-center mb-8">
+          Heading
+        </Heading>
+        <p className="text-title font-bold mb-8">Subtitle</p>
       </div>
-      {/* <div className={`${data.layout === "left" && "order-1"}`}>
-        {data.image && <img
-          src={urlFor(data.image).url()}
-          className="object-cover w-full h-full"
-        />}
-      </div> */}
     </div>
   );
 }
 
-export function Columns({ columns, title, subtitle, colorTheme }) {
+// export function TextWithImage({ data, blocks }) {
+//   return (
+//     <div className="grid grid-cols-1 md:grid-cols-2">
+//       <div
+//         className={`${sectionPadding} grid place-items-center ${
+//           data?.layout === "left" && "order-2"
+//         }`}
+//       >
+//         {blocks.map((block: BlockProps) =>
+//           blockIterator(block, data.colorTheme)
+//         )}
+//       </div>
+//       {/* <div className={`${data.layout === "left" && "order-1"}`}>
+//         {data.image && <img
+//           src={urlFor(data.image).url()}
+//           className="object-cover w-full h-full"
+//         />}
+//       </div> */}
+//     </div>
+//   );
+// }
+
+export function Columns({ columns, title, subtitle, colorTheme }: any) {
   const colorThemeStyles = {
     background: colorTheme?.background?.hex,
     color: colorTheme?.text?.hex,
@@ -310,9 +311,10 @@ export function Columns({ columns, title, subtitle, colorTheme }) {
 
   return (
     <div className={`${sectionPadding}`} style={colorThemeStyles}>
-      <Heading size="large" className="text-center mb-8">
+      <Heading size="large" className="text-center">
         {title}
       </Heading>
+      <p className="text-title font-bold mb-8 text-center">{subtitle}</p>
       <div className={`grid grid-cols-1 ${columnCount()} gap-4 items-center`}>
         {columns.map((column: Column) => {
           const columnLayout = `
@@ -375,9 +377,6 @@ export function Columns({ columns, title, subtitle, colorTheme }) {
   );
 }
 
-// export const inputStyle =
-//   "w-full shadow-md p-2 rounded md:px-4 lg:px-4 bg-white/25 border-2 border-white focus:bg-white";
-
 export function Contact({
   title,
   subtitle,
@@ -403,12 +402,17 @@ export function Contact({
     >
       <Heading size="large">{title}</Heading>
       <p className="text-title font-bold mb-8">{subtitle}</p>
-      <ContactForm fields={fields} submit={submit} colorTheme={colorTheme} redirect={redirect ?? null} />
+      <ContactForm
+        fields={fields}
+        submit={submit}
+        colorTheme={colorTheme}
+        redirect={redirect ?? null}
+      />
     </div>
   );
 }
 
-export function ContactForm({ fields, submit, colorTheme, redirect }) {
+export function ContactForm({ fields, submit, colorTheme, redirect }: any) {
   const inputClass = "w-full border-b-2 p-2 md:px-4",
     inputStyle = {
       borderColor: colorTheme?.accent.hex,
@@ -426,7 +430,7 @@ export function ContactForm({ fields, submit, colorTheme, redirect }) {
       action="https://submit-form.com/hF7Ye4Ew"
     >
       {redirect && <input type="hidden" name="_redirect" value={redirect} />}
-      {fields.map((field:any) => {
+      {fields.map((field: any) => {
         switch (field.type) {
           case "text":
             return (
@@ -456,7 +460,7 @@ export function ContactForm({ fields, submit, colorTheme, redirect }) {
             return (
               <div className="flex gap-2 p-2 md:px-4" key={field._key}>
                 <label htmlFor={field.label}>{field.label}</label>
-                {field.options.map((option:any) => (
+                {field.options.map((option: any) => (
                   <label key={option._key} htmlFor={field.label}>
                     <input
                       type="radio"
@@ -500,7 +504,7 @@ export function ContactForm({ fields, submit, colorTheme, redirect }) {
   );
 }
 
-export function RichContent({ body, colorTheme }) {
+export function RichContent({ body, colorTheme }: any) {
   return (
     <div
       className={sectionPadding}

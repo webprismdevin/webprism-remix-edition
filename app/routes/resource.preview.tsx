@@ -6,7 +6,7 @@ import { json, redirect } from "@remix-run/node";
 import { getSession, commitSession, destroySession } from "~/sessions";
 
 // A `POST` request to this route will exit preview mode
-export const action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request, params }) => {
   if (request.method !== "POST") {
     return json({ message: "Method not allowed" }, 405);
   }
@@ -26,7 +26,12 @@ export const loader = async ({ request }: LoaderArgs) => {
   // See note on your responsibility to secure this token
   session.set(`preview`, process.env.SANITY_API_READ_TOKEN);
 
-  return redirect(`/`, {
+  const url = new URL(request.url);
+  const searchParams = new URLSearchParams(url.search);
+  const redirectUrl =
+    searchParams.get("redirect") || searchParams.get("return_to") || "/";
+
+  return redirect(redirectUrl, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

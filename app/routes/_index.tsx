@@ -31,6 +31,8 @@ export default function Index() {
 
   if (loading && !data) return <div>loading...</div>;
 
+  console.log(data)
+
   return (
     <div>
       <Modules
@@ -40,6 +42,7 @@ export default function Index() {
     </div>
   );
 }
+
 const HOME_QUERY = groq`*[_type == "home"][0]{
   ...,
   modules[]{
@@ -47,6 +50,14 @@ const HOME_QUERY = groq`*[_type == "home"][0]{
     colorTheme->,
     body[]{
       ...,
+      markDefs[]{
+        ...,
+        (_type == "linkInternal") => {
+          (reference->_type == "page") => {
+            "to": "/pages/" + reference->slug.current
+          },
+        }
+      },
       buttons[]{
         ...,
         (_type == "linkInternal") => {

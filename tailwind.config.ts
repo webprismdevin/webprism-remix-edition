@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-const defaultTheme = require('tailwindcss/defaultTheme');
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 export default {
   content: ["./app/**/*.{js,jsx,ts,tsx}"],
@@ -11,6 +11,7 @@ export default {
       },
       height: {
         hero: "calc(100vh - 64px)",
+        nav: "80px",
       },
     },
   },

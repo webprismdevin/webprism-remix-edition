@@ -1,6 +1,7 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -10,7 +11,7 @@ import {
   json,
   useLoaderData,
 } from "@remix-run/react";
-import { Suspense, lazy } from "react";
+import React, { ReactNode, Suspense, lazy } from "react";
 
 import stylesheet from "~/app.css";
 
@@ -44,7 +45,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <Layout>
+          <Outlet />
+        </Layout>
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
@@ -62,3 +65,20 @@ export default function App() {
     </html>
   );
 }
+
+const Layout = ({ children }: { children: ReactNode }) => {
+  
+  return (
+    <>
+      <div className="sticky top-0 right-0 left-0 h-nav flex justify-between items-center p-5 md:p-8 shadow z-50 bg-white/50">
+        <div>
+          <Link to={"/"} className="font-heading uppercase text-xl md:text-2xl">
+            WEBPRISM
+          </Link>
+        </div>
+      </div>
+      {children}
+      <div>Footer</div>
+    </>
+  );
+};

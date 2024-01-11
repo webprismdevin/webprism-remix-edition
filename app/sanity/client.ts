@@ -14,8 +14,8 @@ import imageUrlBuilder from "@sanity/image-url";
 export const client = createClient({
   projectId,
   dataset,
-  useCdn: process.env.NODE_ENV === "production" ?? false,
-  apiVersion: "2023-03-20",
+  useCdn: true,
+  apiVersion: apiVersion,
   stega: {
     enabled: false,
     studioUrl,

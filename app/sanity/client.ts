@@ -1,7 +1,12 @@
 // ./app/sanity/client.ts
 
 import { createClient } from "@sanity/client/stega";
-import { stegaEnabled, projectId, dataset, studioUrl } from "./projectDetails";
+import {
+  apiVersion,
+  dataset,
+  projectId,
+  studioUrl,
+} from "~/sanity/projectDetails";
 import { SanityImageAssetDocument } from "@sanity/client";
 import imageUrlBuilder from "@sanity/image-url";
 
@@ -12,7 +17,7 @@ export const client = createClient({
   useCdn: process.env.NODE_ENV === "production" ?? false,
   apiVersion: "2023-03-20",
   stega: {
-    enabled: stegaEnabled,
+    enabled: false,
     studioUrl,
   },
 });

@@ -14,6 +14,7 @@ import {
 import React, { ReactNode, Suspense, lazy } from "react";
 
 import stylesheet from "~/app.css";
+import { studioUrl } from "./sanity/projectDetails";
 
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
@@ -29,6 +30,7 @@ export const loader = () => {
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
       SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED,
+      SANITY_STUDIO_API_VERSION: process.env.SANITY_STUDIO_API_VERSION!,
     },
   });
 };
@@ -67,7 +69,6 @@ export default function App() {
 }
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  
   return (
     <>
       <div className="sticky top-0 right-0 left-0 h-nav flex justify-between items-center p-5 md:p-8 shadow z-50 bg-white/50">
@@ -78,7 +79,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
         </div>
       </div>
       {children}
-      <div>Footer</div>
+      {/* <div>Footer</div> */}
     </>
   );
 };

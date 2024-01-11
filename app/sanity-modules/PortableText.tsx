@@ -1,6 +1,7 @@
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { Link } from "@remix-run/react";
 import { vercelStegaSplit } from "@vercel/stega";
+import clsx from "clsx";
 import { urlFor } from "~/sanity/client";
 
 const myPortableTextComponents: PortableTextComponents = {
@@ -32,12 +33,18 @@ const myPortableTextComponents: PortableTextComponents = {
       return <span className="drop-shadow-md">{children}</span>;
     },
     linkInternal: ({ children, value }) => {
-      console.log(value)
+      console.log(value);
 
+      return <Link to={value?.to ?? "/"}>{children}</Link>;
+    },
+    linkExternal: ({ children, value }) => {
       return (
-        <Link to={value?.to ?? "/"}>
+        <a
+          target={value?.newWindow ? "_blank" : "_self"}
+          href={value?.url ?? "/"}
+        >
           {children}
-        </Link>
+        </a>
       );
     },
   },
@@ -46,7 +53,9 @@ const myPortableTextComponents: PortableTextComponents = {
       console.log({ value });
 
       return (
-        <div className="flex gap-3 mt-2">
+        <div
+          className={clsx(value.center && "justify-center", "flex gap-3 mt-2")}
+        >
           {value?.buttons?.map((button: any) => {
             if (button._type == "linkInternal") {
               return (

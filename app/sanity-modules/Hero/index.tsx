@@ -88,7 +88,14 @@ export default function Hero(props: HeroProps) {
           )}
         </div>
       )}
-      <div className="relative z-10">
+      <div
+        className="relative z-10 max-w-screen-lg mx-auto flex flex-col"
+        style={{
+          // @ts-ignore
+          textAlign: layout.text,
+          alignItems: layout.align,
+        }}
+      >
         <Body value={props.body} />
       </div>
     </div>

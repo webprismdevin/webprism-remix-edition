@@ -23,8 +23,6 @@ export default function Index() {
 
   if (loading && !data) return <div>loading...</div>;
 
-  console.log(data);
-
   return (
     <div>
       <Modules

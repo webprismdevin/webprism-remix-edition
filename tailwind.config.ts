@@ -13,6 +13,9 @@ export default {
         hero: "calc(100vh - 64px)",
         nav: "80px",
       },
+      minHeight: {
+        hero: "calc(100vh - 64px)",
+      },
     },
   },
   plugins: [],

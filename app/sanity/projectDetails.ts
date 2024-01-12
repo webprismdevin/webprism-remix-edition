@@ -11,6 +11,7 @@ declare global {
       SANITY_STUDIO_API_VERSION: string;
       SANITY_FRONTEND_URL: string;
       SANITY_STUDIO_URL: string;
+      SANITY_STUDIO_STEGA_ENABLED: boolean;
     };
   }
 }

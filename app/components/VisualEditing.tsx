@@ -1,18 +1,33 @@
-// ./app/components/VisualEditing.tsx
+import {useLocation, useNavigate} from '@remix-run/react'
+import type {HistoryUpdate} from '@sanity/overlays'
+import {enableOverlays} from '@sanity/overlays'
+import {useEffect, useMemo, useRef} from 'react'
 
-import { useLocation, useNavigate } from "@remix-run/react";
-import type { HistoryUpdate } from "@sanity/overlays";
-import { enableOverlays } from "@sanity/overlays";
-import { useEffect, useRef } from "react";
+import {client} from '~/sanity/client'
+import {useLiveMode} from '~/sanity/loader'
 
-import { useLiveMode } from "~/sanity/loader";
-import { client } from "~/sanity/client";
+type VisualEditingProps = {
+  studioUrl: string
+}
 
-export default function VisualEditing() {
-  const navigateRemix = useNavigate();
+// Default export required for React Lazy loading
+// eslint-disable-next-line import/no-default-export
+export default function VisualEditing({studioUrl}: VisualEditingProps) {
+  const stegaClient = useMemo(
+    () =>
+      client.withConfig({
+        stega: {
+          enabled: true,
+          studioUrl,
+        },
+      }),
+    [studioUrl],
+  )
+
+  const navigateRemix = useNavigate()
   const navigateComposerRef = useRef<null | ((update: HistoryUpdate) => void)>(
-    null
-  );
+    null,
+  )
 
   useEffect(() => {
     // When displayed inside an iframe
@@ -21,36 +36,42 @@ export default function VisualEditing() {
         zIndex: 999999,
         history: {
           subscribe: (navigate) => {
-            navigateComposerRef.current = navigate;
+            navigateComposerRef.current = navigate
             return () => {
-              navigateComposerRef.current = null;
-            };
+              navigateComposerRef.current = null
+            }
           },
           update: (update) => {
-            if (update.type === "push" || update.type === "replace") {
-              navigateRemix(update.url, { replace: update.type === "replace" });
-            } else if (update.type === "pop") {
-              navigateRemix(-1);
+            if (update.type === 'push' || update.type === 'replace') {
+              navigateRemix(update.url, {replace: update.type === 'replace'})
+            } else if (update.type === 'pop') {
+              navigateRemix(-1)
             }
           },
         },
-      });
-      return () => disable();
+      })
+      return () => disable()
+    } else {
+      if (typeof document !== 'undefined') {
+        console.log(
+          `Stega is enabled but Visual Editing is configured to only display in an iframe.`,
+        )
+      }
     }
-  }, [navigateRemix]);
+  }, [navigateRemix, studioUrl])
 
-  const location = useLocation();
+  const location = useLocation()
   useEffect(() => {
     if (navigateComposerRef.current) {
       navigateComposerRef.current({
-        type: "push",
+        type: 'push',
         url: `${location.pathname}${location.search}${location.hash}`,
-      });
+      })
     }
-  }, [location.hash, location.pathname, location.search]);
+  }, [location.hash, location.pathname, location.search])
 
   // Enable live queries from the specified studio origin URL
-  useLiveMode({ client });
+  useLiveMode({client: stegaClient})
 
-  return null;
+  return null
 }

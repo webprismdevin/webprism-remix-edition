@@ -1,9 +1,10 @@
-import { json, type MetaFunction } from "@remix-run/node";
+import { json, LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { loadQuery } from "~/sanity/loader.server";
 import groq from "groq";
 import Modules from "~/sanity-modules/Modules";
 import { useQuery } from "~/sanity/loader";
+import { isStegaEnabled } from "~/sanity/projectDetails";
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,8 +19,16 @@ type HomeType = {
   };
 };
 
-export const loader = async () => {
-  const { data: initial } = await loadQuery<HomeType>(HOME_QUERY);
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const stegaEnabled = isStegaEnabled(request.url);
+
+  const { data: initial } = await loadQuery<HomeType>(
+    HOME_QUERY,
+    {},
+    {
+      perspective: stegaEnabled ? "previewDrafts" : "published",
+    }
+  );
 
   return json({ initial });
 };
@@ -31,8 +40,6 @@ export default function Index() {
 
   if (loading && !data) return <div>loading...</div>;
 
-  console.log(data)
-
   return (
     <div>
       <Modules
@@ -43,6 +50,14 @@ export default function Index() {
   );
 }
 
+// move to fragment file
+export const INTERNAL_LINK_FRAGMENT = groq`
+  (_type == "linkInternal") => {
+    (reference->_type == "page") => {
+      "to": "/pages/" + reference->slug.current
+    },
+  }`;
+
 const HOME_QUERY = groq`*[_type == "home"][0]{
   ...,
   modules[]{
@@ -52,20 +67,11 @@ const HOME_QUERY = groq`*[_type == "home"][0]{
       ...,
       markDefs[]{
         ...,
-        (_type == "linkInternal") => {
-          (reference->_type == "page") => {
-            "to": "/pages/" + reference->slug.current
-          },
-        }
+        ${INTERNAL_LINK_FRAGMENT}
       },
       buttons[]{
         ...,
-        (_type == "linkInternal") => {
-          ...,
-          (reference->_type == "page") => {
-            "to": "/pages/" + reference->slug.current
-          },
-        }
+        ${INTERNAL_LINK_FRAGMENT}
       }
     }
   }

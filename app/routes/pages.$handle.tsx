@@ -1,17 +1,24 @@
-import { LoaderFunction, json } from "@remix-run/node";
+import { LoaderFunction, LoaderFunctionArgs, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import groq from "groq";
 import Modules, { Module } from "~/sanity-modules/Modules";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
+import { isStegaEnabled } from "~/sanity/projectDetails";
 
 type PageType = {
   modules: Module[];
 };
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const stegaEnabled = isStegaEnabled(request.url);
+
   const { handle } = params;
-  const { data: initial } = await loadQuery<PageType>(PAGE_QUERY, { handle });
+  const { data: initial } = await loadQuery<PageType>(
+    PAGE_QUERY,
+    { handle },
+    { perspective: stegaEnabled ? "previewDrafts" : "published" }
+  );
 
   return json({ initial, handle });
 };

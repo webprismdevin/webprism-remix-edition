@@ -50,7 +50,7 @@ export default function Hero(props: HeroProps) {
     <div
       className={clsx(
         layout.fullHeight && "h-hero",
-        "flex flex-col relative p-5 md:p-8 min-h-[450px]"
+        "flex flex-col relative p-5 md:p-20 min-h-[450px]"
       )}
       style={{
         background: props.colorTheme?.background.hex,
@@ -89,11 +89,15 @@ export default function Hero(props: HeroProps) {
         </div>
       )}
       <div
-        className="relative z-10 max-w-screen-lg mx-auto flex flex-col"
+        className={clsx(
+          // layout.align == "center" && "mx-auto",
+          "relative z-10 max-w-screen-xl flex flex-col mx-auto w-full"
+        )}
         style={{
           // @ts-ignore
           textAlign: layout.text,
           alignItems: layout.align,
+          alignSelf: "stretch"
         }}
       >
         <Body value={props.body} />

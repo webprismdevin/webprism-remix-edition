@@ -24,6 +24,12 @@ const myPortableTextComponents: PortableTextComponents = {
     h6: ({ children }) => (
       <h6 className="font-heading text-xs md:text-sm">{children}</h6>
     ),
+    normal: ({ children }) => {
+      // @ts-ignore
+      if (children[0] == "") return <br className="h-8" />;
+
+      return <p className="text-base">{children}</p>;
+    },
   },
   marks: {
     color: ({ children, value }) => {
@@ -33,8 +39,6 @@ const myPortableTextComponents: PortableTextComponents = {
       return <span className="drop-shadow-md">{children}</span>;
     },
     linkInternal: ({ children, value }) => {
-      console.log(value);
-
       return <Link to={value?.to ?? "/"}>{children}</Link>;
     },
     linkExternal: ({ children, value }) => {
@@ -50,8 +54,6 @@ const myPortableTextComponents: PortableTextComponents = {
   },
   types: {
     buttons: ({ value }) => {
-      console.log({ value });
-
       return (
         <div
           className={clsx(value.center && "justify-center", "flex gap-3 mt-2")}
@@ -133,10 +135,11 @@ const myPortableTextComponents: PortableTextComponents = {
           id={cleaned}
           className="grid grid-cols-1 gap-3 mt-3 w-full md:min-w-[65ch] max-w-prose mx-auto text-left"
           action={value?.action}
+          data-botpoison-public-key="pk_f7d9a478-bf2d-4ae9-9227-cc4cc2fcbc4e"
         >
           {value.fields.map((field: any) => {
             return (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2" key={field._key}>
                 <label htmlFor={field.name}>{field.label}</label>
                 <input
                   placeholder={field?.placeholder}

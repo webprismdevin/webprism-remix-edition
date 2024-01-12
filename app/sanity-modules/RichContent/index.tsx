@@ -10,8 +10,6 @@ type RichContentModule = {
 export default function RichContent(props: RichContentModule) {
   const layout = vercelStegaCleanAll<Layout>(props?.layout ?? {});
 
-  console.log({ layout });
-
   return (
     <div
       className={clsx(

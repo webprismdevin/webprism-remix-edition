@@ -11,7 +11,7 @@ import {
   json,
   useLoaderData,
 } from "@remix-run/react";
-import { isStegaEnabled, studioUrl } from "~/sanity/projectDetails";
+import { apiVersion, isStegaEnabled, studioUrl } from "~/sanity/projectDetails";
 
 import React, { ReactNode, Suspense, lazy } from "react";
 
@@ -25,7 +25,7 @@ const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
-  { rel: "favicon", href: "/favicon.png"},
+  { rel: "favicon", href: "/favicon.png" },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
@@ -58,7 +58,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
       SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED,
-      SANITY_STUDIO_API_VERSION: studioUrl,
+      SANITY_STUDIO_API_VERSION: apiVersion,
     },
   });
 };
@@ -68,7 +68,7 @@ export default function App() {
 
   const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
 
-  console.log({ data, initial });
+  console.log(ENV.SANITY_STUDIO_URL);
 
   return (
     <html lang="en">

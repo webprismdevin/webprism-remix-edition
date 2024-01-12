@@ -2,6 +2,8 @@ import { queryStore } from "~/sanity/loader";
 
 import { client } from "~/sanity/client";
 
+console.log(process.env.SANITY_READ_TOKEN);
+
 const clientWithToken = client.withConfig({
   token: process.env.SANITY_READ_TOKEN,
 });

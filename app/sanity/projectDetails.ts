@@ -57,6 +57,8 @@ export const studioUrl =
     ? "https://webprism-remix.sanity.studio"
     : "http://localhost:3333";
 
+console.log({ environ: process.env.NODE_ENV, studioUrl });
+
 // With the logic below we enable stega only on the non-production domain
 export function isStegaEnabled(url: string) {
   const { hostname } = new URL(url);

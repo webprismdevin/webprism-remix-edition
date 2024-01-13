@@ -25,7 +25,7 @@ const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
-  { rel: "favicon", href: "/favicon.png" },
+  { rel: "icon", href: "/favicon.png" },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
@@ -67,8 +67,6 @@ export default function App() {
   const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
 
   const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
-
-  console.log(ENV.SANITY_STUDIO_URL);
 
   return (
     <html lang="en">

@@ -62,8 +62,6 @@ export const studioUrl =
       : process.env.SANITY_STUDIO_URL!
     : window.ENV.SANITY_STUDIO_URL!;
 
-console.log("studioUrl", studioUrl);
-
 // With the logic below we enable stega only on the non-production domain
 export function isStegaEnabled(url: string) {
   const { hostname } = new URL(url);

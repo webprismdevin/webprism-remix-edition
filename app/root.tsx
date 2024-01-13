@@ -66,6 +66,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function App() {
   const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
 
+  console.log({ stegaEnabled, ENV });
+
   const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
 
   return (

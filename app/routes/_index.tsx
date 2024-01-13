@@ -38,8 +38,6 @@ export default function Index() {
 
   const { data, loading } = useQuery(HOME_QUERY, { initial });
 
-  console.log({ data, loading });
-
   return (
     <div>
       <Modules modules={!loading && data ? data?.modules : initial?.modules} />

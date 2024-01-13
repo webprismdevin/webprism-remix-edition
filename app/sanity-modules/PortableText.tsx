@@ -62,6 +62,7 @@ const myPortableTextComponents: PortableTextComponents = {
             if (button._type == "linkInternal") {
               return (
                 <Link
+                  key={button._key}
                   to={button?.to}
                   className="bg-black text-white px-4 py-2 rounded-full drop-shadow-sm"
                   style={{
@@ -77,6 +78,7 @@ const myPortableTextComponents: PortableTextComponents = {
             return (
               <a
                 href={button?.url}
+                key={button._key}
                 className="bg-black text-white px-4 py-2 rounded-full drop-shadow-sm"
                 style={{
                   background: button?.color?.hex ?? "white",

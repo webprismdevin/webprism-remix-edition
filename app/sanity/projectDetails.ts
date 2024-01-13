@@ -52,7 +52,17 @@ export const PRODUCTION_URL = "https://webprism.co";
 //     : window.ENV.SANITY_FRONTEND_URL!
 
 // This is the Studio URL that will be allowed to access the front end URL
-export const studioUrl = process.env.SANITY_STUDIO_URL;
+// export const studioUrl = process.env.SANITY_STUDIO_URL;
+export const studioUrl =
+  typeof document === "undefined"
+    ? process.env.VERCEL
+      ? process.env.VERCEL_ENV !== "production"
+        ? `https://${process.env.VERCEL_URL}`
+        : PRODUCTION_URL
+      : process.env.SANITY_STUDIO_URL!
+    : window.ENV.SANITY_STUDIO_URL!;
+
+console.log("studioUrl", studioUrl);
 
 // With the logic below we enable stega only on the non-production domain
 export function isStegaEnabled(url: string) {

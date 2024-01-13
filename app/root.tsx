@@ -79,7 +79,7 @@ export default function App() {
       </head>
       <body>
         {/* @ts-expect-error */}
-        <Layout menu={!loading && data ? data?.meny : initial.menu}>
+        <Layout menu={!loading && data ? data?.menu : initial.menu}>
           <Outlet />
         </Layout>
         <ScrollRestoration />

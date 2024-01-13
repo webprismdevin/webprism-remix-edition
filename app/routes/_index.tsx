@@ -38,14 +38,11 @@ export default function Index() {
 
   const { data, loading } = useQuery(HOME_QUERY, { initial });
 
-  if (loading && !data) return <div>loading...</div>;
+  console.log({ data, loading });
 
   return (
     <div>
-      <Modules
-        // @ts-ignore
-        modules={loading || !data ? initial.modules : data?.modules}
-      />
+      <Modules modules={!loading && data ? data?.modules : initial?.modules} />
     </div>
   );
 }

@@ -66,8 +66,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function App() {
   const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
 
-  console.log({ stegaEnabled, ENV });
-
   const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
 
   return (
@@ -109,7 +107,7 @@ const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
         <Link to={"/"} className="font-heading uppercase text-xl md:text-2xl">
           WEBPRISM
         </Link>
-        <div className="flex gap-5">
+        <div className="flex gap-2 md:gap-5">
           {menu?.map((item) => {
             if (item._type == "linkExternal") {
               return (

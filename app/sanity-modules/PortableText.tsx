@@ -93,7 +93,7 @@ const myPortableTextComponents: PortableTextComponents = {
     image: ({ value }) => {
       return (
         <div
-          className="w-full md:w-[80%] h-full relative"
+          className="w-full h-full relative"
           style={{ aspectRatio: value?.aspectRatio ?? "auto" }}
         >
           <img
@@ -106,7 +106,14 @@ const myPortableTextComponents: PortableTextComponents = {
     },
     columns: ({ value }) => {
       return (
+<<<<<<< Updated upstream
         <div className="flex flex-col md:flex-row justify-around gap-8 md:gap-3 mt-3">
+=======
+        <div
+          key={value._key}
+          className="flex flex-col md:flex-row justify-around gap-3 md:gap-12 mt-3 w-full"
+        >
+>>>>>>> Stashed changes
           {value?.columns?.map((column: any) => {
             return (
               <div
@@ -160,6 +167,37 @@ const myPortableTextComponents: PortableTextComponents = {
         </form>
       );
     },
+<<<<<<< Updated upstream
+=======
+    accordions: ({ value }) => {
+      return (
+        <div className="flex flex-col gap-3 mt-3 w-full md:min-w-[65ch] max-w-prose mx-auto text-left border-t">
+          {value?.groups?.map((accordion: any) => {
+            return (
+              <Disclosure as="div" className="border-b py-2" key={accordion._key}>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-full">
+                      <span className="font-bold">{accordion.title}</span>
+                      <NavArrowDown
+                        className={clsx(open && "transform rotate-180")}
+                      />
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="pt-1">
+                      <PortableText
+                        value={accordion?.body}
+                        components={myPortableTextComponents}
+                      />
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+            );
+          })}
+        </div>
+      );
+    },
+>>>>>>> Stashed changes
   },
 };
 

@@ -1,47 +1,14 @@
 import { vercelStegaCleanAll } from "@sanity/client/stega";
 import Body from "../PortableText";
 import { urlFor } from "~/sanity/client";
-import { SanityImageAssetDocument } from "@sanity/client";
 import clsx from "clsx";
-
-export type Layout = {
-  text: string;
-  justify: string;
-  align: string;
-  fullHeight: boolean;
-};
-
-export type ModuleProps = {
-  colorTheme: ColorTheme;
-  layout: Layout;
-};
-
-export type ModuleImage = SanityImageAssetDocument & {
-  alt: string;
-  overlay: Color;
-};
+import { Layout, ModuleImage, ModuleProps } from "../Modules";
 
 export type HeroProps = {
   body: any[];
   image: ModuleImage;
+  layout: Layout;
 } & ModuleProps;
-
-type ColorTheme = {
-  accent: Color;
-  background: Color;
-  text: Color;
-};
-
-type Color = {
-  hex: string;
-  rgb: {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-  };
-  alpha: number;
-};
 
 export default function Hero(props: HeroProps) {
   const layout = vercelStegaCleanAll<Layout>(props.layout);
@@ -97,7 +64,7 @@ export default function Hero(props: HeroProps) {
           // @ts-ignore
           textAlign: layout.text,
           alignItems: layout.align,
-          alignSelf: "stretch"
+          alignSelf: "stretch",
         }}
       >
         <Body value={props.body} />

@@ -5,6 +5,7 @@ import groq from "groq";
 import Modules from "~/sanity-modules/Modules";
 import { useQuery } from "~/sanity/loader";
 import { isStegaEnabled } from "~/sanity/projectDetails";
+import { MODULE_FRAGMENT } from "~/sanity/fragments";
 
 export const meta: MetaFunction = () => {
   return [
@@ -42,37 +43,19 @@ export default function Index() {
 
   return (
     <div>
+<<<<<<< Updated upstream
       <Modules
         // @ts-ignore
         modules={loading || !data ? initial.modules : data?.modules}
       />
+=======
+      {/* @ts-ignore */}
+      <Modules modules={loading || !data ? initial?.modules : data?.modules} />
+>>>>>>> Stashed changes
     </div>
   );
 }
-
-// move to fragment file
-export const INTERNAL_LINK_FRAGMENT = groq`
-  (_type == "linkInternal") => {
-    (reference->_type == "page") => {
-      "to": "/pages/" + reference->slug.current
-    },
-  }`;
-
 const HOME_QUERY = groq`*[_type == "home"][0]{
   ...,
-  modules[]{
-    ...,
-    colorTheme->,
-    body[]{
-      ...,
-      markDefs[]{
-        ...,
-        ${INTERNAL_LINK_FRAGMENT}
-      },
-      buttons[]{
-        ...,
-        ${INTERNAL_LINK_FRAGMENT}
-      }
-    }
-  }
+  ${MODULE_FRAGMENT}
 }`;

@@ -12,6 +12,7 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { apiVersion, isStegaEnabled, studioUrl } from "~/sanity/projectDetails";
+import { Menu } from "@headlessui/react";
 
 import { ReactNode, Suspense, lazy } from "react";
 
@@ -99,30 +100,13 @@ const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
         <Link to={"/"} className="font-heading uppercase text-xl md:text-2xl">
           WEBPRISM
         </Link>
-        <div className="flex gap-5">
-          {menu?.map((item) => {
-            if (item._type == "linkExternal") {
-              return (
-                <a key={item._key} href={item.url}>
-                  {item.title}
-                </a>
-              );
-            }
-            return (
-              <Link key={item._key} to={item.to}>
-                {item.title}
-              </Link>
-            );
-          })}
-        </div>
+        <MenuDropdown menu={menu} />
       </div>
       {children}
       {/* <div>Footer</div> */}
     </>
   );
 };
-<<<<<<< Updated upstream
-=======
 
 const MenuDropdown = ({ menu }: { menu: any[] }) => {
   return (
@@ -187,4 +171,3 @@ const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
     ${INTERNAL_LINK_FRAGMENT}
   }
 }`;
->>>>>>> Stashed changes

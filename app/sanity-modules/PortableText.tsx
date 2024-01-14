@@ -3,6 +3,7 @@ import { Link } from "@remix-run/react";
 import { vercelStegaSplit } from "@vercel/stega";
 import clsx from "clsx";
 import { urlFor } from "~/sanity/client";
+import { Disclosure } from "@headlessui/react";
 
 const myPortableTextComponents: PortableTextComponents = {
   block: {
@@ -106,14 +107,10 @@ const myPortableTextComponents: PortableTextComponents = {
     },
     columns: ({ value }) => {
       return (
-<<<<<<< Updated upstream
-        <div className="flex flex-col md:flex-row justify-around gap-8 md:gap-3 mt-3">
-=======
         <div
           key={value._key}
           className="flex flex-col md:flex-row justify-around gap-3 md:gap-12 mt-3 w-full"
         >
->>>>>>> Stashed changes
           {value?.columns?.map((column: any) => {
             return (
               <div
@@ -167,14 +164,16 @@ const myPortableTextComponents: PortableTextComponents = {
         </form>
       );
     },
-<<<<<<< Updated upstream
-=======
     accordions: ({ value }) => {
       return (
         <div className="flex flex-col gap-3 mt-3 w-full md:min-w-[65ch] max-w-prose mx-auto text-left border-t">
           {value?.groups?.map((accordion: any) => {
             return (
-              <Disclosure as="div" className="border-b py-2" key={accordion._key}>
+              <Disclosure
+                as="div"
+                className="border-b py-2"
+                key={accordion._key}
+              >
                 {({ open }) => (
                   <>
                     <Disclosure.Button className="flex justify-between w-full">
@@ -197,7 +196,6 @@ const myPortableTextComponents: PortableTextComponents = {
         </div>
       );
     },
->>>>>>> Stashed changes
   },
 };
 

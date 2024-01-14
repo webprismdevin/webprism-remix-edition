@@ -30,17 +30,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }
   );
 
-  return json({ initial });
+  return json({ initial, stegaEnabled });
 };
 
 export default function Index() {
-  const { initial } = useLoaderData<typeof loader>();
+  const { initial, stegaEnabled } = useLoaderData<typeof loader>();
 
   const { data, loading } = useQuery(HOME_QUERY, { initial });
 
   return (
     <div>
-      <Modules modules={!loading && data ? data?.modules : initial?.modules} />
+      <Modules modules={loading || !data ? initial?.modules : data?.modules} />
     </div>
   );
 }

@@ -71,6 +71,8 @@ export default function App() {
 
   const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
 
+  console.log({ loading, data });
+
   return (
     <html lang="en">
       <head>
@@ -81,8 +83,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {/* @ts-expect-error */}
-        <Layout menu={!loading && data ? data?.menu : initial.menu}>
+        <Layout menu={loading || !data ? initial?.menu : data?.menu}>
           <Outlet />
         </Layout>
         <ScrollRestoration />

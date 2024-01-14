@@ -43,6 +43,8 @@ const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stegaEnabled = isStegaEnabled(request.url);
 
+  console.log(stegaEnabled);
+
   const { data: initial } = await loadQuery<SettingsType>(
     SETTINGS_QUERY,
     {},
@@ -111,7 +113,9 @@ const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
         <MenuDropdown menu={menu} />
       </div>
       {children}
-      <div className="pt-4 pb-8 text-center md:text-right px-5 md:px-8">© WEBPRISM {new Date().getFullYear()}.</div>
+      <div className="pt-4 pb-8 text-center md:text-right px-5 md:px-8">
+        © WEBPRISM {new Date().getFullYear()}.
+      </div>
     </>
   );
 };

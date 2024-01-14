@@ -3,7 +3,7 @@ import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { Link } from "@remix-run/react";
 import { vercelStegaSplit } from "@vercel/stega";
 import clsx from "clsx";
-import { NavArrowDown } from "iconoir-react";
+import { NavArrowDown } from "~/components/Icon";
 import { urlFor } from "~/sanity/client";
 
 const myPortableTextComponents: PortableTextComponents = {
@@ -179,9 +179,9 @@ const myPortableTextComponents: PortableTextComponents = {
                   <>
                     <Disclosure.Button className="flex justify-between w-full">
                       <span className="font-bold">{accordion.title}</span>
-                      {/* <NavArrowDown
+                      <NavArrowDown
                         className={clsx(open && "transform rotate-180")}
-                      /> */}
+                      />
                     </Disclosure.Button>
                     <Disclosure.Panel className="pt-1">
                       <PortableText

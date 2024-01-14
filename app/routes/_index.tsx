@@ -39,19 +39,10 @@ export default function Index() {
 
   const { data, loading } = useQuery(HOME_QUERY, { initial });
 
-  if (loading && !data) return <div>loading...</div>;
-
   return (
     <div>
-<<<<<<< Updated upstream
-      <Modules
-        // @ts-ignore
-        modules={loading || !data ? initial.modules : data?.modules}
-      />
-=======
       {/* @ts-ignore */}
       <Modules modules={loading || !data ? initial?.modules : data?.modules} />
->>>>>>> Stashed changes
     </div>
   );
 }

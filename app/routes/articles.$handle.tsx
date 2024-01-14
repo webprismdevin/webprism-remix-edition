@@ -22,8 +22,6 @@ export default function Article() {
 
   const { loading, data } = useQuery(ARTICLE_QUERY, { handle });
 
-  if (loading) return <div>Loading...</div>;
-
   const loadedData = loading || !data ? initial : data;
 
   console.log({ loadedData });

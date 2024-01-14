@@ -12,15 +12,15 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import { apiVersion, isStegaEnabled, studioUrl } from "~/sanity/projectDetails";
-import { Menu } from "@headlessui/react";
 
-import { ReactNode, Suspense, lazy } from "react";
+import React, { ReactNode, Suspense, lazy } from "react";
 
 import stylesheet from "~/app.css";
 import { loadQuery } from "./sanity/loader.server";
 import groq from "groq";
 import { INTERNAL_LINK_FRAGMENT } from "~/sanity/fragments";
 import { useQuery } from "./sanity/loader";
+import { Menu } from "@headlessui/react";
 
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
@@ -32,8 +32,18 @@ export const links: LinksFunction = () => [
 
 type SettingsType = {};
 
+const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
+  ...,
+  menu[]{
+    ...,
+    ${INTERNAL_LINK_FRAGMENT}
+  }
+}`;
+
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stegaEnabled = isStegaEnabled(request.url);
+
+  console.log({ stegaEnabled });
 
   const { data: initial } = await loadQuery<SettingsType>(
     SETTINGS_QUERY,
@@ -61,6 +71,8 @@ export default function App() {
 
   const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
 
+  console.log({ loading, data });
+
   return (
     <html lang="en">
       <head>
@@ -71,8 +83,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        {/* @ts-expect-error */}
-        <Layout menu={!loading && data ? data?.meny : initial.menu}>
+        <Layout menu={loading || !data ? initial?.menu : data?.menu}>
           <Outlet />
         </Layout>
         <ScrollRestoration />
@@ -103,7 +114,9 @@ const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
         <MenuDropdown menu={menu} />
       </div>
       {children}
-      {/* <div>Footer</div> */}
+      <div className="pt-4 pb-8 text-center md:text-right px-5 md:px-8">
+        © WEBPRISM {new Date().getFullYear()}.
+      </div>
     </>
   );
 };
@@ -163,11 +176,3 @@ const MenuDropdown = ({ menu }: { menu: any[] }) => {
     </div>
   );
 };
-
-const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
-  ...,
-  menu[]{
-    ...,
-    ${INTERNAL_LINK_FRAGMENT}
-  }
-}`;

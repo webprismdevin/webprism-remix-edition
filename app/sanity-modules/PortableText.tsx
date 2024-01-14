@@ -1,7 +1,9 @@
+import { Disclosure } from "@headlessui/react";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { Link } from "@remix-run/react";
 import { vercelStegaSplit } from "@vercel/stega";
 import clsx from "clsx";
+import { NavArrowDown } from "iconoir-react";
 import { urlFor } from "~/sanity/client";
 
 const myPortableTextComponents: PortableTextComponents = {
@@ -108,7 +110,10 @@ const myPortableTextComponents: PortableTextComponents = {
     },
     columns: ({ value }) => {
       return (
-        <div className="flex flex-col md:flex-row justify-around gap-8 md:gap-3 mt-3">
+        <div
+          key={value._key}
+          className="flex flex-col md:flex-row justify-around gap-8 md:gap-3 mt-3"
+        >
           {value?.columns?.map((column: any) => {
             return (
               <div
@@ -160,6 +165,36 @@ const myPortableTextComponents: PortableTextComponents = {
             Submit
           </button>
         </form>
+      );
+    },
+    accordions: ({ value }) => {
+      console.log({ value });
+
+      return (
+        <div className="flex flex-col gap-3 mt-3 w-full md:min-w-[65ch] max-w-prose mx-auto text-left border-t">
+          {value?.groups?.map((accordion: any) => {
+            return (
+              <Disclosure as="div" className="border-b py-2">
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex justify-between w-full">
+                      <span className="font-bold">{accordion.title}</span>
+                      <NavArrowDown
+                        className={clsx(open && "transform rotate-180")}
+                      />
+                    </Disclosure.Button>
+                    <Disclosure.Panel className="pt-1">
+                      <PortableText
+                        value={accordion?.body}
+                        components={myPortableTextComponents}
+                      />
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+            );
+          })}
+        </div>
       );
     },
   },

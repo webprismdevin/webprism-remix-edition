@@ -109,25 +109,9 @@ const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
           WEBPRISM
         </Link>
         <MenuDropdown menu={menu} />
-        {/* <div className="flex gap-2 md:gap-5">
-          {menu?.map((item) => {
-            if (item._type == "linkExternal") {
-              return (
-                <a key={item._key} href={item.url}>
-                  {item.title}
-                </a>
-              );
-            }
-            return (
-              <Link key={item._key} to={item.to}>
-                {item.title}
-              </Link>
-            );
-          })}
-        </div>*/}
       </div>
       {children}
-      {/* <div>Footer</div> */}
+      <div className="pt-4 pb-8 text-center md:text-right px-5 md:px-8">© WEBPRISM {new Date().getFullYear()}.</div>
     </>
   );
 };

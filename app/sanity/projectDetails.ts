@@ -41,7 +41,7 @@ export const projectDetails = () => ({
 // <git-repo-slug>-<sha>-<username>.vercel.app
 
 // This is used to enable stega on any URL except this one
-export const PRODUCTION_URL = "https://webprism.co";
+export const PRODUCTION_URL = "webprism.co";
 
 // This is the front end URL that should display inside Presentation
 // export const frontendUrl =
@@ -66,7 +66,12 @@ export const studioUrl =
 export function isStegaEnabled(url: string) {
   const { hostname } = new URL(url);
 
-  console.log({ hostname, url, PRODUCTION_URL });
+  console.log({
+    hostname,
+    url,
+    PRODUCTION_URL,
+    vercelUrl: process.env.VERCEL_URL,
+  });
 
   return hostname !== new URL(PRODUCTION_URL).hostname;
 }

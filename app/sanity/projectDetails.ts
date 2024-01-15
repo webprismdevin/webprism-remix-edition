@@ -65,6 +65,9 @@ export const studioUrl =
 // With the logic below we enable stega only on the non-production domain
 export function isStegaEnabled(url: string) {
   const { hostname } = new URL(url);
+
+  console.log({ hostname, url, PRODUCTION_URL });
+
   return hostname !== new URL(PRODUCTION_URL).hostname;
 }
 

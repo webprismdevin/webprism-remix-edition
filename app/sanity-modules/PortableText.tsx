@@ -3,9 +3,7 @@ import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { Link } from "@remix-run/react";
 import { vercelStegaSplit } from "@vercel/stega";
 import clsx from "clsx";
-import { NavArrowDown } from "~/components/Icon";
 import { urlFor } from "~/sanity/client";
-import { Disclosure } from "@headlessui/react";
 import { NavArrowDown } from "~/components/Icon";
 
 const myPortableTextComponents: PortableTextComponents = {

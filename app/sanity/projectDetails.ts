@@ -66,13 +66,6 @@ export const studioUrl =
 export function isStegaEnabled(url: string) {
   const { hostname } = new URL(url);
 
-  console.log({
-    hostname,
-    url,
-    PRODUCTION_URL: new URL(PRODUCTION_URL).hostname,
-    vercelUrl: process.env.VERCEL_URL,
-  });
-
   return hostname !== new URL(PRODUCTION_URL).hostname;
 }
 

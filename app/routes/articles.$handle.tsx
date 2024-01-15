@@ -24,8 +24,6 @@ export default function Article() {
 
   const loadedData = loading || !data ? initial : data;
 
-  console.log({ loadedData });
-
   return (
     <div>
       {/* @ts-ignore */}

@@ -39,8 +39,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function Index() {
   const { initial, stegaEnabled } = useLoaderData<typeof loader>();
 
-  console.log({ stegaEnabled });
-
   // @ts-ignore
   const { data, loading } = useQuery(HOME_QUERY, {}, { initial });
 

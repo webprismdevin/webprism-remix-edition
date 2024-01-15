@@ -53,8 +53,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }
   );
 
-  console.log({ stegaEnabled, perspective });
-
   return json({
     stegaEnabled,
     initial,
@@ -77,8 +75,6 @@ export default function App() {
     {},
     { initial }
   );
-
-  console.log({ loading, data });
 
   return (
     <html lang="en">

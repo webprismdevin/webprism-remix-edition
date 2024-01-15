@@ -5,6 +5,8 @@ import { vercelStegaSplit } from "@vercel/stega";
 import clsx from "clsx";
 import { NavArrowDown } from "~/components/Icon";
 import { urlFor } from "~/sanity/client";
+import { Disclosure } from "@headlessui/react";
+import { NavArrowDown } from "~/components/Icon";
 
 const myPortableTextComponents: PortableTextComponents = {
   block: {
@@ -97,7 +99,7 @@ const myPortableTextComponents: PortableTextComponents = {
     image: ({ value }) => {
       return (
         <div
-          className="w-full md:w-[80%] h-full relative"
+          className="w-full h-full relative"
           style={{ aspectRatio: value?.aspectRatio ?? "auto" }}
         >
           <img
@@ -112,7 +114,7 @@ const myPortableTextComponents: PortableTextComponents = {
       return (
         <div
           key={value._key}
-          className="flex flex-col md:flex-row justify-around gap-8 md:gap-3 mt-3"
+          className="flex flex-col md:flex-row justify-around gap-3 md:gap-12 mt-3 w-full"
         >
           {value?.columns?.map((column: any) => {
             return (
@@ -168,13 +170,15 @@ const myPortableTextComponents: PortableTextComponents = {
       );
     },
     accordions: ({ value }) => {
-      console.log({ value });
-
       return (
         <div className="flex flex-col gap-3 mt-3 w-full md:min-w-[65ch] max-w-prose mx-auto text-left border-t">
           {value?.groups?.map((accordion: any) => {
             return (
-              <Disclosure as="div" className="border-b py-2">
+              <Disclosure
+                as="div"
+                className="border-b py-2"
+                key={accordion._key}
+              >
                 {({ open }) => (
                   <>
                     <Disclosure.Button className="flex justify-between w-full">

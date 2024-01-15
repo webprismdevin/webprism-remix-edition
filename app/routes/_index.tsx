@@ -31,11 +31,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }
   );
 
-  return json({ initial });
+  return json({ initial, stegaEnabled });
 };
 
 export default function Index() {
-  const { initial } = useLoaderData<typeof loader>();
+  const { initial, stegaEnabled } = useLoaderData<typeof loader>();
+
+  console.log({ stegaEnabled });
 
   const { data, loading } = useQuery(HOME_QUERY, { initial });
 

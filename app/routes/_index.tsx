@@ -23,11 +23,13 @@ type HomeType = {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stegaEnabled = isStegaEnabled(request.url);
 
+  const perspective = stegaEnabled ? "previewDrafts" : "published";
+
   const { data: initial } = await loadQuery<HomeType>(
     HOME_QUERY,
     {},
     {
-      perspective: stegaEnabled ? "previewDrafts" : "published",
+      perspective,
     }
   );
 
@@ -39,7 +41,8 @@ export default function Index() {
 
   console.log({ stegaEnabled });
 
-  const { data, loading } = useQuery(HOME_QUERY, { initial });
+  // @ts-ignore
+  const { data, loading } = useQuery(HOME_QUERY, {}, { initial });
 
   return (
     <div>

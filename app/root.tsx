@@ -43,15 +43,17 @@ const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stegaEnabled = isStegaEnabled(request.url);
 
-  console.log({ stegaEnabled });
+  const perspective = stegaEnabled ? "previewDrafts" : "published";
 
   const { data: initial } = await loadQuery<SettingsType>(
     SETTINGS_QUERY,
     {},
     {
-      perspective: stegaEnabled ? "previewDrafts" : "published",
+      perspective,
     }
   );
+
+  console.log({ stegaEnabled, perspective });
 
   return json({
     stegaEnabled,
@@ -69,7 +71,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function App() {
   const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
 
-  const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
+  // @ts-ignore
+  const { data, loading } = useQuery<typeof initial.data>(
+    SETTINGS_QUERY,
+    {},
+    { initial }
+  );
 
   console.log({ loading, data });
 

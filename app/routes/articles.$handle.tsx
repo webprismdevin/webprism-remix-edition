@@ -20,11 +20,13 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export const meta: MetaFunction = ({ data }) => {
   // @ts-ignore
-  const { title, description, image } = data?.initial ?? {};
+  const { title, description, image } = data.initial ?? {};
+
+  console.log(data.initial);
 
   return [
-    { title: title ?? "Article" },
-    { name: "description", content: description ?? "" },
+    { title: title },
+    { name: "description", content: description ?? "A webprism article" },
     { property: "og:image", content: image?.url ?? "" },
   ];
 };

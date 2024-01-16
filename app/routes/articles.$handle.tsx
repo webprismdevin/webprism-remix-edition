@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import groq from "groq";
 import { loadQuery } from "~/sanity/loader.server";
@@ -17,6 +17,17 @@ export async function loader({ params }: LoaderFunctionArgs) {
     handle,
   });
 }
+
+export const meta: MetaFunction = ({ data }) => {
+  // @ts-ignore
+  const { title, description, image } = data?.initial ?? {};
+
+  return [
+    { title: title ?? "Article" },
+    { name: "description", content: description ?? "" },
+    { property: "og:image", content: image?.url ?? "" },
+  ];
+};
 
 export default function Article() {
   const { initial, handle } = useLoaderData<typeof loader>();

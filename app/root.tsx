@@ -22,6 +22,10 @@ import { INTERNAL_LINK_FRAGMENT } from "~/sanity/fragments";
 import { useQuery } from "./sanity/loader";
 import { Menu } from "@headlessui/react";
 
+// vercel stuffs
+import { SpeedInsights } from "@vercel/speed-insights/remix";
+import { Analytics } from "@vercel/analytics/react";
+
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
 export const links: LinksFunction = () => [
@@ -102,6 +106,8 @@ export default function App() {
         ) : null}
         <Scripts />
         <LiveReload />
+        <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

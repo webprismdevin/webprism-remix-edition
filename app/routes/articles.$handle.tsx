@@ -5,6 +5,7 @@ import { loadQuery } from "~/sanity/loader.server";
 import { useQuery } from "~/sanity/loader";
 import Body from "~/sanity-modules/PortableText";
 import Hero from "~/sanity-modules/Hero";
+import { BODY_FRAGMENT } from "~/sanity/fragments";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { handle } = params;
@@ -28,13 +29,20 @@ export default function Article() {
     <div>
       {/* @ts-ignore */}
       {loadedData?.hero && <Hero {...loadedData.hero} />}
-      <div className="px-5 py-10 md:p-20">
+      <div className="px-5 py-10 md:p-20 max-w-screen-lg mx-auto">
         {/* @ts-ignore */}
         <Body value={loadedData?.body} />
       </div>
-      {/* <Modules modules={loading || data ? initial?.modules : data?.modules} /> */}
     </div>
   );
 }
 
-const ARTICLE_QUERY = groq`*[_type == "article" && slug.current == $handle][0]`;
+const ARTICLE_QUERY = groq`*[_type == "article" && slug.current == $handle][0]{
+  ...,
+  hero {
+    ...,
+    ${BODY_FRAGMENT},
+    colorTheme->
+  },
+  ${BODY_FRAGMENT}
+}`;

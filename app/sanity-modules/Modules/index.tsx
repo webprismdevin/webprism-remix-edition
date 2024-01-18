@@ -51,6 +51,7 @@ const ModuleSwitch = (module: Module) => {
     case "textWithImage":
       return <TextWithImage key={module._key} {...module} />;
     case "columns":
+      // @ts-ignore
       return <Columns key={module._key} {...module} />;
     default:
       return <div key={module._key}>{module._type}</div>;

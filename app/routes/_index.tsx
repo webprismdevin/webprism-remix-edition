@@ -39,7 +39,7 @@ export default function Index() {
 
   console.log({ stegaEnabled });
 
-  const { data, loading } = useQuery(HOME_QUERY, { initial });
+  const { data, loading } = useQuery(HOME_QUERY, {}, { initial });
 
   return (
     <div>

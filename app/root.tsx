@@ -43,8 +43,6 @@ const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stegaEnabled = isStegaEnabled(request.url);
 
-  console.log({ stegaEnabled });
-
   const { data: initial } = await loadQuery<SettingsType>(
     SETTINGS_QUERY,
     {},
@@ -69,9 +67,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function App() {
   const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
 
-  const { data, loading } = useQuery(SETTINGS_QUERY, { initial });
-
-  console.log({ loading, data });
+  const { data, loading } = useQuery(SETTINGS_QUERY, {}, { initial });
 
   return (
     <html lang="en">

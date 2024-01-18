@@ -2,7 +2,7 @@ import { urlFor } from "~/sanity/client";
 import Body from "../PortableText";
 import { forwardRef, useRef } from "react";
 import { Pagination } from "./Pagination";
-import { ModuleProps } from "../Modules";
+import { Module } from "../Modules";
 
 export type Column = {
   _type: "column";
@@ -13,7 +13,7 @@ export type Column = {
 
 type ColumnsProps = {
   columns: Column[];
-} & ModuleProps;
+} & Module;
 
 export default function Columns(props: ColumnsProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -47,7 +47,7 @@ const ColumnLayout = forwardRef<HTMLDivElement, ColumnsProps>((props, ref) => (
             />
           )}
           {column.body && (
-            <div className="absolute top-0 left-0 right-0 bottom-0 flex items-end justify-center z-10 p-10">
+            <div className="absolute top-0 left-0 right-0 bottom-0 flex items-end justify-center z-10 p-10 pb-20">
               <div>
                 <Body value={column.body} />
               </div>

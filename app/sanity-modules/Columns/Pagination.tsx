@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import { Column } from ".";
+import { ArrowLeft, ArrowRight } from "~/components/Icon";
 
 type PaginationProps = {
   columns: Column[];
@@ -13,7 +14,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
     const totalSlides = props.columns.length;
 
     const nextSlide = () => {
-      if (currentSlide < totalSlides - 1) {
+      if (currentSlide < totalSlides - 2) {
         setCurrentSlide(currentSlide + 1);
       }
     };
@@ -40,23 +41,23 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
         <div className="absolute bottom-4 right-4 z-50 flex gap-3">
           <button
             onClick={prevSlide}
+            style={{
+              borderColor: props.colorTheme.text.hex,
+            }}
             disabled={currentSlide === 0}
-            className={`px-4 py-2 rounded-full ${
-              currentSlide === 0 ? "bg-gray-300" : "bg-blue-500 text-white"
-            }`}
+            className={`p-2 border-2 rounded-full`}
           >
-            Previous
+            <ArrowLeft color={props.colorTheme.text.hex} />
           </button>
           <button
             onClick={nextSlide}
-            disabled={currentSlide === totalSlides - 1}
-            className={`px-4 py-2 rounded-full ${
-              currentSlide === totalSlides - 1
-                ? "bg-gray-300"
-                : "bg-blue-500 text-white"
-            }`}
+            disabled={currentSlide === totalSlides - 2}
+            style={{
+              borderColor: props.colorTheme.text.hex,
+            }}
+            className={`p-2 border-2 rounded-full`}
           >
-            Next
+            <ArrowRight color={props.colorTheme.text.hex} />
           </button>
         </div>
         {props.children}

@@ -1,3 +1,4 @@
+import Columns from "../Columns";
 import Hero from "../Hero";
 import TextWithImage from "../TextWithImage";
 import type { SanityDocument, SanityImageAssetDocument } from "@sanity/client";
@@ -49,6 +50,9 @@ const ModuleSwitch = (module: Module) => {
       return <Hero key={module._key} {...module} />;
     case "textWithImage":
       return <TextWithImage key={module._key} {...module} />;
+    case "columns":
+      // @ts-ignore
+      return <Columns key={module._key} {...module} />;
     default:
       return <div key={module._key}>{module._type}</div>;
   }

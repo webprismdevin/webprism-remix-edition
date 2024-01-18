@@ -5,6 +5,8 @@ import { vercelStegaSplit } from "@vercel/stega";
 import clsx from "clsx";
 import { urlFor } from "~/sanity/client";
 import { NavArrowDown } from "~/components/Icon";
+import { useRef } from "react";
+import { useInView, motion } from "framer-motion";
 
 const myPortableTextComponents: PortableTextComponents = {
   list: {
@@ -18,6 +20,14 @@ const myPortableTextComponents: PortableTextComponents = {
     number: ({ children }) => (
       <li className="ml-8 list-decimal">{children}</li>
     ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="mt-xl">{children}</ul>,
+    number: ({ children }) => <ol className="mt-lg">{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="ml-8 list-disc">{children}</li>,
+    number: ({ children }) => <li className="ml-8 list-decimal">{children}</li>,
   },
   block: {
     h1: ({ children }) => (
@@ -58,12 +68,22 @@ const myPortableTextComponents: PortableTextComponents = {
     linkExternal: ({ children, value }) => {
       return (
         <a
+          className="w-full"
           target={value?.newWindow ? "_blank" : "_self"}
           href={value?.url ?? "/"}
         >
           {children}
         </a>
       );
+    },
+    textRight: ({ children }) => {
+      return <span className="justify-self-end">{children}</span>;
+    },
+    textCenter: ({ children }) => {
+      return <span className="justify-self-center">{children}</span>;
+    },
+    textLeft: ({ children }) => {
+      return <span className="justify-self-start">{children}</span>;
     },
   },
   types: {
@@ -107,6 +127,12 @@ const myPortableTextComponents: PortableTextComponents = {
       );
     },
     image: ({ value }) => {
+      const ref = useRef<HTMLImageElement>(null);
+
+      const isInView = useInView(ref, { once: true });
+
+      if (!value?.asset) return null;
+
       return (
         <div className="bg-black/10 p-4 my-8">
           <img
@@ -116,6 +142,16 @@ const myPortableTextComponents: PortableTextComponents = {
             className="w-full h-full object-cover"
           />
         </div>
+        <motion.img
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          ref={ref}
+          src={urlFor(value?.asset).url()}
+          alt={value?.alt}
+          style={{ aspectRatio: value?.aspectRatio ?? "[4/5]" }}
+          className={"w-full h-full object-cover"}
+        />
       );
     },
     columns: ({ value }) => {
@@ -127,6 +163,7 @@ const myPortableTextComponents: PortableTextComponents = {
           {value?.columns?.map((column: any) => {
             return (
               <div
+                key={column._key}
                 className="flex-1 flex flex-col gap-2"
                 style={{
                   textAlign: value.layout?.textAlign ?? "center",

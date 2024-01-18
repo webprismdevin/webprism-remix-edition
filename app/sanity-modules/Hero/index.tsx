@@ -17,7 +17,7 @@ export default function Hero(props: HeroProps) {
     <div
       className={clsx(
         layout.fullHeight && "h-hero",
-        "flex flex-col relative p-5 md:p-20 min-h-[450px]"
+        "flex flex-col relative p-10 md:p-20"
       )}
       style={{
         background: props.colorTheme?.background.hex,

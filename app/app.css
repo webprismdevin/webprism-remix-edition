@@ -25,3 +25,14 @@
   font-style: normal;
   font-display: block;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hiddenScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hiddenScroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

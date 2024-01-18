@@ -14,18 +14,6 @@ const myPortableTextComponents: PortableTextComponents = {
     number: ({ children }) => <ol className="mt-lg">{children}</ol>,
   },
   listItem: {
-    bullet: ({ children }) => (
-      <li className="ml-8 list-disc">{children}</li>
-    ),
-    number: ({ children }) => (
-      <li className="ml-8 list-decimal">{children}</li>
-    ),
-  },
-  list: {
-    bullet: ({ children }) => <ul className="mt-xl">{children}</ul>,
-    number: ({ children }) => <ol className="mt-lg">{children}</ol>,
-  },
-  listItem: {
     bullet: ({ children }) => <li className="ml-8 list-disc">{children}</li>,
     number: ({ children }) => <li className="ml-8 list-decimal">{children}</li>,
   },
@@ -134,14 +122,6 @@ const myPortableTextComponents: PortableTextComponents = {
       if (!value?.asset) return null;
 
       return (
-        <div className="bg-black/10 p-4 my-8">
-          <img
-            src={urlFor(value?.asset).url()}
-            alt={value?.alt}
-            style={{ aspectRatio: value?.aspectRatio ?? "[4/5]" }}
-            className="w-full h-full object-cover"
-          />
-        </div>
         <motion.img
           initial={{ opacity: 0 }}
           animate={{ opacity: isInView ? 1 : 0 }}

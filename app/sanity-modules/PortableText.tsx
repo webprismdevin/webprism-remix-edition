@@ -7,6 +7,7 @@ import { urlFor } from "~/sanity/client";
 import { NavArrowDown } from "~/components/Icon";
 import { useRef } from "react";
 import { useInView, motion } from "framer-motion";
+import { vercelStegaCleanAll } from "@sanity/client/stega";
 
 const myPortableTextComponents: PortableTextComponents = {
   list: {
@@ -18,11 +19,27 @@ const myPortableTextComponents: PortableTextComponents = {
     number: ({ children }) => <li className="ml-8 list-decimal">{children}</li>,
   },
   block: {
-    h1: ({ children }) => (
-      <h1 className="font-heading text-6xl md:text-8xl">{children}</h1>
+    h1: ({ children, value }) => (
+      <h1
+        className={clsx(
+          value.markDefs?.some((def) => def._type == "alignment") &&
+            "w-full flex",
+          "font-heading text-6xl md:text-8xl"
+        )}
+      >
+        {children}
+      </h1>
     ),
-    h2: ({ children }) => (
-      <h2 className="font-heading text-4xl md:text-6xl">{children}</h2>
+    h2: ({ children, value }) => (
+      <h2
+        className={clsx(
+          value.markDefs?.some((def) => def._type == "alignment") &&
+            "w-full flex",
+          "font-heading text-4xl md:text-6xl"
+        )}
+      >
+        {children}
+      </h2>
     ),
     h3: ({ children }) => (
       <h3 className="font-heading text-2xl md:text-4xl">{children}</h3>
@@ -51,6 +68,8 @@ const myPortableTextComponents: PortableTextComponents = {
       return <span className="drop-shadow-md">{children}</span>;
     },
     linkInternal: ({ children, value }) => {
+      console.log({ children });
+
       return <Link to={value?.to ?? "/"}>{children}</Link>;
     },
     linkExternal: ({ children, value }) => {
@@ -62,6 +81,21 @@ const myPortableTextComponents: PortableTextComponents = {
         >
           {children}
         </a>
+      );
+    },
+    alignment: ({ children, value }) => {
+      const { align } = vercelStegaCleanAll(value);
+
+      return (
+        <span
+          className={clsx(
+            align == "center" && "w-full text-center",
+            align == "left" && "w-full text-left",
+            align == "right" && "w-full text-right"
+          )}
+        >
+          {children}
+        </span>
       );
     },
     textRight: ({ children }) => {

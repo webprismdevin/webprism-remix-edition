@@ -37,7 +37,7 @@ const ColumnLayout = forwardRef<HTMLDivElement, ColumnsProps>((props, ref) => (
       return (
         <div
           key={column._keys}
-          className="h-[700px] md:h-[900px] min-w-[320px] md:min-w-[640px] grow-0 relative snap-start"
+          className="h-[700px] md:h-[900px] min-w-[320px] md:min-w-[480px] grow-0 relative snap-start"
         >
           {column?.image && column.image?.asset && (
             <img

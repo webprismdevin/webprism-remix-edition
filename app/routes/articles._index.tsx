@@ -21,7 +21,7 @@ export default function ArticlesIndex() {
 
   return (
     <div>
-      <h1 className="w-full py-5 md:py-20 text-center font-heading text-6xl md:text-8xl">
+      <h1 className="w-full py-5 md:py-20 text-center font-heading text-4xl md:text-8xl">
         Articles
       </h1>
       {/* @ts-ignore */}

@@ -1,10 +1,11 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import clsx from "clsx";
 import { ArrowRight, OpenInNew } from "~/components/Icon";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
+import { isStegaEnabled } from "~/sanity/projectDetails";
 
 type Swipe = {};
 
@@ -16,13 +17,18 @@ export const meta = () => {
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  const stegaEnabled = isStegaEnabled(request.url);
   const url = new URL(request.url);
   const searchQuery = url.searchParams.get("q") ?? "*";
   const viewMode = url.searchParams.get("viewMode") ?? "grid";
 
-  const { data: initial } = await loadQuery<Swipe[]>(SWIPE_QUERY, {
-    q: searchQuery == "" ? "*" : searchQuery.toLowerCase() ?? "*",
-  });
+  const { data: initial } = await loadQuery<Swipe[]>(
+    SWIPE_QUERY,
+    {
+      q: searchQuery == "" ? "*" : searchQuery.toLowerCase() ?? "*",
+    },
+    { perspective: stegaEnabled ? "previewDrafts" : "published" }
+  );
 
   return json({
     initial,
@@ -49,7 +55,7 @@ export default function Swipe() {
 
   return (
     <>
-      <h1 className="w-full py-5 md:py-20 text-center font-heading text-6xl md:text-8xl">
+      <h1 className="w-full py-5 md:py-20 text-center font-heading text-4xl md:text-8xl">
         Swipe File
       </h1>
       <Form
@@ -130,7 +136,15 @@ const GridView = ({ data, layout }: { data: Swipe[]; layout: ViewMode }) => {
       {data.map((swipe: any) => (
         <SwipeCard key={swipe._key} swipe={swipe} layout={layout} />
       ))}
-      <div className={clsx("text-center min-h-full min-w-full p-4 flex items-center gap-2", layout == "carousel" ? "min-w-[120px] flex-col justify-center" : "justify-center", layout == "grid" && "col-span-2")}>
+      <div
+        className={clsx(
+          "text-center min-h-full min-w-full p-4 flex items-center gap-2",
+          layout == "carousel"
+            ? "min-w-[120px] flex-col justify-center"
+            : "justify-center",
+          layout == "grid" && "col-span-2"
+        )}
+      >
         <div>🥃</div>
         <div>You've reached the end. Cheers.</div>
         <div>🥃</div>
@@ -140,8 +154,6 @@ const GridView = ({ data, layout }: { data: Swipe[]; layout: ViewMode }) => {
 };
 
 const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
-  console.log(layout);
-
   return (
     <div
       className={clsx(
@@ -150,7 +162,8 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
         layout == "list" && "flex"
       )}
     >
-      <div
+      <Link
+        to={`/swipe/${swipe.slug.current}`}
         className={clsx(
           "aspect-video overflow-hidden",
           layout == "list" && "w-1/3"
@@ -167,14 +180,19 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
           sizes="100vw"
           alt={swipe.main?.alt ?? "Decorative"}
         />
-      </div>
+      </Link>
       <div className={clsx("p-4 relative", layout == "list" && "w-2/3")}>
         <div className="absolute top-4 right-4">
           <a href={swipe.url} target="_blank" rel="noopener noreferrer">
             <OpenInNew height={16} width={16} />
           </a>
         </div>
-        <h1 className="font-heading text-2xl md:text-3xl">{swipe.title}</h1>
+        <Link
+          to={`/swipe/${swipe.slug.current}`}
+          className="font-heading text-2xl md:text-3xl"
+        >
+          {swipe.title}
+        </Link>
         <div className="flex justify-start gap-2">
           {swipe.tags.map((tag: string) => (
             <div className="px-2 py-1 rounded-sm bg-slate-200 text-xs md:text-sm text-slate-500">

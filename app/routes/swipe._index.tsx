@@ -119,7 +119,7 @@ const GridView = ({ data, layout }: { data: Swipe[]; layout: ViewMode }) => {
   return (
     <div className={clsx(viewMode(), "gap-4 p-4 md:gap-8 md:p-8")}>
       {data.map((swipe: any) => (
-        <SwipeCard key={swipe._id} swipe={swipe} layout={layout} />
+        <SwipeCard key={swipe._key} swipe={swipe} layout={layout} />
       ))}
     </div>
   );
@@ -145,6 +145,12 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
         <img
           className={clsx("object-cover aspect-video w-full relative")}
           src={urlFor(swipe.main).width(400).url()}
+          srcSet={`
+            ${urlFor(swipe.main).width(400).url()} 400w,
+            ${urlFor(swipe.main).width(800).url()} 800w,
+            ${urlFor(swipe.main).width(1200).url()} 1200w,
+          `}
+          sizes="100vw"
           alt={swipe.main?.alt ?? "Decorative"}
         />
       </div>

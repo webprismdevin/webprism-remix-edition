@@ -107,7 +107,6 @@ export default function Swipe() {
         </div>
       </Form>
       <GridView data={data} layout={viewMode} />
-      <div className="text-center">🥃 You've reached the end. Cheers. 🥃</div>
     </>
   );
 }
@@ -131,6 +130,11 @@ const GridView = ({ data, layout }: { data: Swipe[]; layout: ViewMode }) => {
       {data.map((swipe: any) => (
         <SwipeCard key={swipe._key} swipe={swipe} layout={layout} />
       ))}
+      <div className={clsx("text-center min-h-full min-w-full p-4 flex items-center gap-2", layout == "carousel" ? "min-w-[120px] flex-col justify-center" : "justify-center", layout == "grid" && "col-span-2")}>
+        <div>🥃</div>
+        <div>You've reached the end. Cheers.</div>
+        <div>🥃</div>
+      </div>
     </div>
   );
 };

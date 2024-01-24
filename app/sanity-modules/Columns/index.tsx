@@ -28,7 +28,7 @@ export default function Columns(props: ColumnsProps) {
 const ColumnLayout = forwardRef<HTMLDivElement, ColumnsProps>((props, ref) => (
   <div
     ref={ref}
-    className="overflow-y-scroll flex snap-x hiddenScroll relative"
+    className="overflow-y-scroll flex snap-x hidden-scroll relative"
     style={{
       color: props.colorTheme.text.hex,
     }}

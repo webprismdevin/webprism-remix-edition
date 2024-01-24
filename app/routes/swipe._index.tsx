@@ -1,13 +1,19 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { Form, useLoaderData, useSubmit } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import clsx from "clsx";
-import { useState } from "react";
 import { ArrowRight, OpenInNew } from "~/components/Icon";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
 
 type Swipe = {};
+
+export const meta = () => {
+  return [
+    { title: "Our E-com Web Design Swipe File" },
+    { name: "description", content: "Our design inspiration swipe file." },
+  ];
+};
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -46,7 +52,10 @@ export default function Swipe() {
       <h1 className="w-full py-5 md:py-20 text-center font-heading text-6xl md:text-8xl">
         Swipe File
       </h1>
-      <Form className="w-full flex flex-col-reverse md:flex-row justify-between items-end p-4 md:p-8 gap-3">
+      <Form
+        preventScrollReset={true}
+        className="w-full flex flex-col-reverse md:flex-row justify-between items-end p-4 md:p-8 gap-3 sticky top-[72px] z-10 bg-white border-b"
+      >
         <div className="border border-slate-300 rounded-sm flex">
           <input
             name="q"
@@ -98,6 +107,7 @@ export default function Swipe() {
         </div>
       </Form>
       <GridView data={data} layout={viewMode} />
+      <div className="text-center">🥃 You've reached the end. Cheers. 🥃</div>
     </>
   );
 }
@@ -108,7 +118,7 @@ const GridView = ({ data, layout }: { data: Swipe[]; layout: ViewMode }) => {
       case "grid":
         return "grid grid-cols-2";
       case "carousel":
-        return "flex overflow-x-auto";
+        return "flex overflow-x-auto snap-x snap-mandatory hidden-scroll";
       case "list":
         return "grid grid-cols-1";
       default:
@@ -132,7 +142,7 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
     <div
       className={clsx(
         "border border-black/10 rounded shadow-sm",
-        layout == "carousel" && "min-w-[90%]",
+        layout == "carousel" && "min-w-[70%] snap-center",
         layout == "list" && "flex"
       )}
     >

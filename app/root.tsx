@@ -25,6 +25,7 @@ import { Menu } from "@headlessui/react";
 // vercel stuffs
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
+import clsx from "clsx";
 
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
@@ -49,6 +50,8 @@ const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const stegaEnabled = isStegaEnabled(request.url);
 
+  const isHome = request.url === "/";
+
   const perspective = stegaEnabled ? "previewDrafts" : "published";
 
   const { data: initial } = await loadQuery<SettingsType>(
@@ -62,6 +65,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return json({
     stegaEnabled,
     initial,
+    isHome,
     ENV: {
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
@@ -72,7 +76,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function App() {
-  const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
+  const { ENV, stegaEnabled, initial, isHome } = useLoaderData<typeof loader>();
 
   const { data, loading } = useQuery<typeof initial.data>(
     SETTINGS_QUERY,
@@ -91,7 +95,10 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Layout menu={loading || !data ? initial?.menu : data?.menu}>
+        <Layout
+          menu={loading || !data ? initial?.menu : data?.menu}
+          isHome={isHome}
+        >
           <Outlet />
         </Layout>
         <ScrollRestoration />
@@ -114,10 +121,23 @@ export default function App() {
   );
 }
 
-const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
+const Layout = ({
+  children,
+  menu,
+  isHome,
+}: {
+  children: ReactNode;
+  menu: any[];
+  isHome: boolean;
+}) => {
   return (
     <>
-      <div className="sticky top-0 right-0 left-0 h-nav flex justify-between items-center p-5 md:p-8 shadow z-50 bg-white/50 backdrop-blur">
+      <div
+        className={clsx(
+          isHome ? "bg-white/50 backdrop-blur" : "bg-white",
+          "sticky top-0 right-0 left-0 h-nav flex justify-between items-center p-5 md:p-8 shadow z-50"
+        )}
+      >
         <Link to={"/"} className="font-heading uppercase text-xl md:text-2xl">
           WEBPRISM
         </Link>

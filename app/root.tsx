@@ -34,7 +34,9 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
-type SettingsType = {};
+type SettingsType = {
+  menu: any[];
+};
 
 const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
   ...,
@@ -64,7 +66,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
       SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
       SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
-      SANITY_STUDIO_STEGA_ENABLED: process.env.SANITY_STUDIO_STEGA_ENABLED,
       SANITY_STUDIO_API_VERSION: apiVersion,
     },
   });
@@ -73,10 +74,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function App() {
   const { ENV, stegaEnabled, initial } = useLoaderData<typeof loader>();
 
-  // @ts-ignore
   const { data, loading } = useQuery<typeof initial.data>(
     SETTINGS_QUERY,
     {},
+    // @ts-expect-error
     { initial }
   );
 

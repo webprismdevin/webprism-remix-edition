@@ -1,6 +1,14 @@
 import { LoaderFunctionArgs, MetaFunction, json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import {
+  Link,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useNavigation,
+} from "@remix-run/react";
 import groq from "groq";
+import { useEffect, useRef } from "react";
+import { NavArrowDown } from "~/components/Icon";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
@@ -43,6 +51,7 @@ export const meta: MetaFunction = ({ data }) => {
 
 export default function SwipePage() {
   const { initial, handle } = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
 
   const { data, loading } = useQuery<PageType>(SWIPE_PAGE_QUERY, {
     handle,
@@ -52,6 +61,9 @@ export default function SwipePage() {
 
   return (
     <div className="p-4 md:p-8">
+      <button onClick={() => navigate(-1)} className="mb-4 flex justify-center items-center">
+        <NavArrowDown className="w-4 h-4 transform rotate-90" color={"#141414"} /> <span>Back To List</span>
+      </button>
       <div className="mb-8">
         <h1 className="font-heading text-4xl md:text-6xl">{pageData.title}</h1>
       </div>

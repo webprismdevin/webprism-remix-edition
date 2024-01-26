@@ -20,7 +20,7 @@ export function NavArrowDown({ className, ...props }: IconProps) {
     >
       <path
         d="M6 9L12 15L18 9"
-        stroke="#5198da"
+        stroke={props.color ?? "#141414"}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"

@@ -22,8 +22,6 @@ export const meta: MetaFunction = ({ data }) => {
   // @ts-ignore
   const { title, description, image } = data.initial ?? {};
 
-  console.log(data.initial);
-
   return [
     { title: title },
     { name: "description", content: description ?? "A webprism article" },

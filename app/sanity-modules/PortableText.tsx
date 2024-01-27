@@ -68,8 +68,6 @@ const myPortableTextComponents: PortableTextComponents = {
       return <span className="drop-shadow-md">{children}</span>;
     },
     linkInternal: ({ children, value }) => {
-      console.log({ children });
-
       return <Link to={value?.to ?? "/"}>{children}</Link>;
     },
     linkExternal: ({ children, value }) => {

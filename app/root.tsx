@@ -146,7 +146,7 @@ const Layout = ({
         <MenuDropdown menu={menu} />
       </div>
       {children}
-      {/* <Subscribe /> */}
+      <Subscribe />
       <div className="px-10 md:px-20">
         <div className="pt-4 pb-8 text-center md:text-right">
           © WEBPRISM {new Date().getFullYear()}.

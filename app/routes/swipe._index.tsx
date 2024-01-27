@@ -34,8 +34,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const perspective = stegaEnabled ? "previewDrafts" : "published";
 
-  console.log({ stegaEnabled, perspective });
-
   const { data: initial } = await loadQuery<Swipe[]>(
     SWIPE_QUERY,
     {

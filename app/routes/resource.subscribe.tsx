@@ -12,6 +12,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     return json(
       {
         message: "Missing email or name",
+        status: 400,
       },
       {
         status: 400,
@@ -26,11 +27,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     audienceId: "4c0b84d5-bc07-430b-ab93-a2e42ca3e6c3",
   });
 
-  console.log({ email, name });
-
   return json(
     {
       message: "Success",
+      status: 200,
     },
     {
       status: 200,

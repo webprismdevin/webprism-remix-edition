@@ -39,8 +39,6 @@ type PageType = {
 };
 
 export const meta: MetaFunction = ({ data }) => {
-  console.log(data);
-
   return [
     {
       title: `${

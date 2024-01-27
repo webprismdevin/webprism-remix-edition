@@ -58,7 +58,7 @@ export function Subscribe() {
     if (!hasClosed || !hasSubscribed) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 2000);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, []);

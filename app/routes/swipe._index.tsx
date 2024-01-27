@@ -29,14 +29,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const searchQuery = url.searchParams.get("q") ?? "*";
   const viewMode = url.searchParams.get("viewMode") ?? "grid";
 
-  console.log(stegaEnabled);
+  const perspective = stegaEnabled ? "previewDrafts" : "published";
+
+  console.log({ stegaEnabled, perspective });
 
   const { data: initial } = await loadQuery<Swipe[]>(
     SWIPE_QUERY,
     {
       q: searchQuery == "" ? "*" : searchQuery.toLowerCase() ?? "*",
     },
-    { perspective: stegaEnabled ? "previewDrafts" : "published" }
+    { perspective }
   );
 
   return json({

@@ -19,9 +19,9 @@ export default function Columns(props: ColumnsProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <Pagination {...props} ref={ref}>
-      <ColumnLayout {...props} ref={ref} />
-    </Pagination>
+    // <Pagination {...props} ref={ref}>
+    <ColumnLayout {...props} ref={ref} />
+    // </Pagination>
   );
 }
 

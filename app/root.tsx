@@ -1,6 +1,7 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
+  Form,
   Link,
   Links,
   LiveReload,
@@ -11,9 +12,9 @@ import {
   json,
   useLoaderData,
 } from "@remix-run/react";
-import { apiVersion, isStegaEnabled, studioUrl } from "~/sanity/projectDetails";
+import { apiVersion, isStegaEnabled } from "~/sanity/projectDetails";
 
-import React, { ReactNode, Suspense, lazy } from "react";
+import { ReactNode, Suspense, lazy } from "react";
 
 import stylesheet from "~/app.css";
 import { loadQuery } from "./sanity/loader.server";
@@ -26,6 +27,7 @@ import { Menu } from "@headlessui/react";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
 import clsx from "clsx";
+import { Subscribe } from "./components/Subscribe";
 
 const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
@@ -144,8 +146,11 @@ const Layout = ({
         <MenuDropdown menu={menu} />
       </div>
       {children}
-      <div className="pt-4 pb-8 text-center md:text-right px-5 md:px-8">
-        © WEBPRISM {new Date().getFullYear()}.
+      {/* <Subscribe /> */}
+      <div className="px-10 md:px-20">
+        <div className="pt-4 pb-8 text-center md:text-right">
+          © WEBPRISM {new Date().getFullYear()}.
+        </div>
       </div>
     </>
   );

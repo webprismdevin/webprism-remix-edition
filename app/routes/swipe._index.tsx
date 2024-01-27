@@ -9,6 +9,7 @@ import {
   ListIcon,
   OpenInNew,
 } from "~/components/Icon";
+import { EmailForm } from "~/components/Subscribe";
 import Body from "~/sanity-modules/PortableText";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
@@ -67,9 +68,6 @@ export default function Swipe() {
 
   return (
     <>
-      {/* <h1 className="w-full py-5 md:py-20 text-center font-heading text-4xl md:text-8xl">
-        Swipe File
-      </h1> */}
       <Form
         preventScrollReset={true}
         className="w-full flex flex-col-reverse md:flex-row justify-between items-end p-4 md:p-8 gap-3 sticky top-[72px] z-10 bg-white border-b"
@@ -134,6 +132,13 @@ export default function Swipe() {
         </div>
       </Form>
       <GridView data={data} layout={viewMode} />
+      <div className="p-10 md:p-20 bg-slate-100 mt-3">
+        <div className="mb-3 text-center">
+          <h3 className="font-heading text-2xl">Want to know when we add new sites?</h3>
+          <p>No spam. No sales. Just sites.</p>
+        </div>
+        <EmailForm />
+      </div>
     </>
   );
 }

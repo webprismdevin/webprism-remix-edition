@@ -68,6 +68,9 @@ export default function Swipe() {
 
   return (
     <>
+      <div className="md:hidden p-5">
+        <h1 className="font-heading text-4xl text-right">Sites that inspire us</h1>
+      </div>
       <Form
         preventScrollReset={true}
         className="w-full flex flex-col-reverse md:flex-row justify-between items-end p-4 md:p-8 gap-3 sticky top-[72px] z-10 bg-white border-b"
@@ -86,6 +89,9 @@ export default function Swipe() {
             Go&nbsp;
             <ArrowRight className="inline" height={"1rem"} width={"1rem"} />
           </button>
+        </div>
+        <div className="hidden md:block">
+          <h1 className="font-heading text-3xl">Sites that inspire us</h1>
         </div>
         <div className="flex border border-slate-300 rounded-sm">
           <button
@@ -134,7 +140,9 @@ export default function Swipe() {
       <GridView data={data} layout={viewMode} />
       <div className="p-10 md:p-20 bg-slate-100 mt-3">
         <div className="mb-3 text-center">
-          <h3 className="font-heading text-2xl">Want to know when we add new sites?</h3>
+          <h3 className="font-heading text-2xl">
+            Want to know when we add new sites?
+          </h3>
           <p>No spam. No sales. Just sites.</p>
         </div>
         <EmailForm />

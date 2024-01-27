@@ -227,7 +227,7 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
         >
           {swipe.title}
         </Link>
-        <div className="flex justify-start gap-2 pt-1 pb-2">
+        <div className="flex justify-start flex-wrap gap-2 pt-1 pb-2">
           {swipe.tags.map((tag: string) => (
             <div className="px-2 py-1 rounded-sm bg-slate-200 text-xs md:text-sm text-slate-500">
               {tag}

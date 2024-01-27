@@ -88,14 +88,13 @@ export default function SwipePage() {
           {pageData.elements
             .filter((element) => element.image.dimensions.aspectRatio > 2.25)
             .map((element) => (
-              <div className="p-2 border border-slate-200 rounded grow max-h-[550px] relative">
-                <img
-                  style={{
-                    aspectRatio: `${element.image.dimensions.aspectRatio}`,
-                  }}
-                  src={urlFor(element.image).url()}
-                  className="w-full"
-                />
+              <div
+                className="p-2 border border-slate-200 rounded grow relative"
+                style={{
+                  aspectRatio: `${element.image.dimensions.aspectRatio}`,
+                }}
+              >
+                <img src={urlFor(element.image).url()} className="w-full" />
                 <div className="absolute bottom-4 left-4 text-xs md:text-sm bg-slate-200 rounded shadow py-1 px-2">
                   {element.caption}
                 </div>

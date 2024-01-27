@@ -8,7 +8,8 @@ import {
 } from "@remix-run/react";
 import groq from "groq";
 import { useEffect, useRef } from "react";
-import { NavArrowDown } from "~/components/Icon";
+import { NavArrowDown, OpenInNew } from "~/components/Icon";
+import Body from "~/sanity-modules/PortableText";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
@@ -61,16 +62,31 @@ export default function SwipePage() {
 
   return (
     <div className="p-4 md:p-8">
-      <button onClick={() => navigate(-1)} className="mb-4 flex justify-center items-center">
-        <NavArrowDown className="w-4 h-4 transform rotate-90" color={"#141414"} /> <span>Back To List</span>
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-4 flex justify-center items-center"
+      >
+        <NavArrowDown
+          className="w-4 h-4 transform rotate-90"
+          color={"#141414"}
+        />{" "}
+        <span>Back To List</span>
       </button>
-      <div className="mb-8">
-        <h1 className="font-heading text-4xl md:text-6xl">{pageData.title}</h1>
+      <div className="mb-8 max-w-prose grid gap-2">
+        <div className="flex items-start gap-3">
+          <h1 className="font-heading text-4xl md:text-6xl">
+            {pageData.title}
+          </h1>
+          <a href={pageData.url} target="_blank" rel="noopener noreferrer">
+            <OpenInNew height={16} width={16} />
+          </a>
+        </div>
+        <Body value={pageData.body} />
       </div>
       <div>
-        <div className="grid grid-cols-1 mb-4">
+        <div className="grid grid-cols-1 gap-4 mb-4">
           {pageData.elements
-            .filter((element) => element.image.dimensions.aspectRatio > 4)
+            .filter((element) => element.image.dimensions.aspectRatio > 2.25)
             .map((element) => (
               <div className="p-2 border border-slate-200 rounded grow max-h-[550px] relative">
                 <img
@@ -89,7 +105,7 @@ export default function SwipePage() {
       </div>
       <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory hidden-scroll">
         {pageData.elements
-          .filter((element) => element.image.dimensions.aspectRatio < 4)
+          .filter((element) => element.image.dimensions.aspectRatio < 2.25)
           .map((element) => (
             <div
               style={{

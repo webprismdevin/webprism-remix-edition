@@ -2,6 +2,7 @@ import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import clsx from "clsx";
 import { ArrowRight, OpenInNew } from "~/components/Icon";
+import Body from "~/sanity-modules/PortableText";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
@@ -159,7 +160,7 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
       className={clsx(
         "border border-black/10 rounded shadow-sm",
         layout == "carousel" && "min-w-[70%] snap-center",
-        layout == "list" && "flex"
+        layout == "list" && "flex max-w-screen-lg mx-auto"
       )}
     >
       <Link
@@ -193,13 +194,18 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
         >
           {swipe.title}
         </Link>
-        <div className="flex justify-start gap-2">
+        <div className="flex justify-start gap-2 pt-1 pb-2">
           {swipe.tags.map((tag: string) => (
             <div className="px-2 py-1 rounded-sm bg-slate-200 text-xs md:text-sm text-slate-500">
               {tag}
             </div>
           ))}
         </div>
+        {layout == "list" && (
+          <div className="text-slate-500 text-sm md:text-base max-w-prose">
+            <Body value={swipe.body} />
+          </div>
+        )}
       </div>
     </div>
   );

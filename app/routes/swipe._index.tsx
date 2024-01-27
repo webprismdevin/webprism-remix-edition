@@ -10,6 +10,7 @@ import {
   OpenInNew,
 } from "~/components/Icon";
 import { EmailForm } from "~/components/Subscribe";
+import cn from "~/lib/cn";
 import Body from "~/sanity-modules/PortableText";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
@@ -204,7 +205,7 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
         )}
       >
         <img
-          className={clsx("object-cover aspect-video w-full relative")}
+          className={cn("object-cover aspect-video w-full relative", layout == "list" && "min-w-full min-h-full")}
           src={urlFor(swipe.main).width(400).url()}
           srcSet={`
             ${urlFor(swipe.main).width(400).url()} 400w,
@@ -235,7 +236,7 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
           ))}
         </div>
         {layout == "list" && (
-          <div className="text-slate-500 text-sm md:text-base max-w-prose">
+          <div className="text-slate-500 text-sm md:text-base max-w-prose hidden md:block">
             <Body value={swipe.body} />
           </div>
         )}

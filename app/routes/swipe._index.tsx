@@ -1,7 +1,13 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import clsx from "clsx";
-import { ArrowRight, OpenInNew } from "~/components/Icon";
+import {
+  ArrowRight,
+  CarouselIcon,
+  GridIcon,
+  ListIcon,
+  OpenInNew,
+} from "~/components/Icon";
 import Body from "~/sanity-modules/PortableText";
 import { urlFor } from "~/sanity/client";
 import { useQuery } from "~/sanity/loader";
@@ -22,6 +28,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const searchQuery = url.searchParams.get("q") ?? "*";
   const viewMode = url.searchParams.get("viewMode") ?? "grid";
+
+  console.log(stegaEnabled);
 
   const { data: initial } = await loadQuery<Swipe[]>(
     SWIPE_QUERY,
@@ -56,9 +64,9 @@ export default function Swipe() {
 
   return (
     <>
-      <h1 className="w-full py-5 md:py-20 text-center font-heading text-4xl md:text-8xl">
+      {/* <h1 className="w-full py-5 md:py-20 text-center font-heading text-4xl md:text-8xl">
         Swipe File
-      </h1>
+      </h1> */}
       <Form
         preventScrollReset={true}
         className="w-full flex flex-col-reverse md:flex-row justify-between items-end p-4 md:p-8 gap-3 sticky top-[72px] z-10 bg-white border-b"
@@ -87,7 +95,10 @@ export default function Swipe() {
             value="grid"
             type="submit"
           >
-            Grid
+            <GridIcon
+              color={viewMode === "grid" ? "white" : undefined}
+              height={18}
+            />
           </button>
           <button
             name="viewMode"
@@ -97,7 +108,10 @@ export default function Swipe() {
             value="carousel"
             type="submit"
           >
-            Carousel
+            <CarouselIcon
+              color={viewMode === "carousel" ? "white" : undefined}
+              height={18}
+            />
           </button>
           <button
             name="viewMode"
@@ -107,7 +121,10 @@ export default function Swipe() {
             value="list"
             type="submit"
           >
-            List
+            <ListIcon
+              color={viewMode === "list" ? "white" : undefined}
+              className="h-4"
+            />
           </button>
           {/* this input needs to be last so it's only picked up by the form if the form is not submitted by the buttons */}
           <input type="hidden" name="viewMode" value={viewMode} />

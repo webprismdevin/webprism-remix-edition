@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import clsx from "clsx";
+import groq from "groq";
 import {
   ArrowRight,
   CarouselIcon,
@@ -230,7 +231,7 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
   );
 };
 
-const SWIPE_QUERY = `*[_type == "swipe" && (title match $q || keywords[] match $q)]{
+const SWIPE_QUERY = groq`*[_type == "swipe" && (title match $q || keywords[] match $q)  && !(_id in path('drafts.**')) ]{
     ...,
     "tags": tags[]->title
 }`;

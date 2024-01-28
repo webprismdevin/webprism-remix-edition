@@ -1,4 +1,5 @@
 import { LoaderFunction, json } from "@remix-run/node";
+import WelcomeEmail from "emails/welcome";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_TOKEN);
@@ -20,11 +21,32 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
   }
 
-  resend.contacts.create({
+  const { data, error } = await resend.contacts.create({
     email,
     firstName: name,
     unsubscribed: false,
     audienceId: "4c0b84d5-bc07-430b-ab93-a2e42ca3e6c3",
+  });
+
+  console.log({ data });
+
+  if (error) {
+    return json(
+      {
+        message: error.message,
+        status: 400,
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+
+  const { data: data2, error: error2 } = await resend.emails.send({
+    from: "Devin @ WEBPRISM <devin@webprism.co>",
+    to: [email],
+    subject: "Thanks for joining us!",
+    react: <WelcomeEmail firstName={name} />,
   });
 
   return json(

@@ -1,6 +1,6 @@
 import { Form, useFetcher } from "@remix-run/react";
 import { Button } from "./Button";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 type EmailFetcher = {
@@ -11,39 +11,58 @@ type EmailFetcher = {
 export const EmailForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   const fetcher = useFetcher<EmailFetcher>();
   const isSubmitting = fetcher.state !== "idle";
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    if (fetcher.data?.status === 200) {
+    console.log(fetcher.data?.status, fetcher.state);
+
+    if (fetcher.data?.status === 200 && !isSubmitting) {
       localStorage.setItem("subscribed", "true");
-      onSuccess && onSuccess();
+
+      // reset form after 1.2s
+      setTimeout(() => {
+        onSuccess && onSuccess();
+        formRef.current?.reset();
+      }, 1200);
     }
   }, [fetcher.state]);
 
   return (
     <fetcher.Form
+      ref={formRef}
       action="/resource/subscribe"
       className="grid grid-cols-2 md:grid-cols-6 gap-3 max-w-prose mx-auto"
     >
-      <input
-        name="name"
-        type="text"
-        placeholder="First name"
-        className="border-2 border-black/10 rounded-sm py-2 px-2 col-span-1 md:col-span-2"
-      />
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        className="border-2 border-black/10 rounded-sm py-2 px-2 col-span-1 md:col-span-3"
-      />
-      <Button
-        disabled={isSubmitting}
-        as="button"
-        type="submit"
-        className="col-span-2 md:col-span-1"
-      >
-        Submit
-      </Button>
+      {!fetcher.data || !fetcher.data?.message ? (
+        <>
+          <input
+            required
+            name="name"
+            type="text"
+            placeholder="First name"
+            className="border-2 border-black/10 rounded-sm py-2 px-2 col-span-1 md:col-span-2"
+          />
+          <input
+            required
+            name="email"
+            type="email"
+            placeholder="Email"
+            className="border-2 border-black/10 rounded-sm py-2 px-2 col-span-1 md:col-span-3"
+          />
+          <Button
+            disabled={isSubmitting}
+            as="button"
+            type="submit"
+            className="col-span-2 md:col-span-1"
+          >
+            Submit
+          </Button>
+        </>
+      ) : (
+        <p className="col-span-2 md:col-span-6 text-center">
+          {fetcher.data.message}
+        </p>
+      )}
     </fetcher.Form>
   );
 };
@@ -90,6 +109,7 @@ export function Subscribe() {
           leaveTo="translate-y-full"
         >
           <div className="bg-white p-6 rounded-t-lg border-t border-black/10 w-full h-auto fixed bottom-0">
+            <div className="absolute top-2 left-2">&times;</div>
             <div className="text-center mb-3">
               <h3 className="text-3xl font-heading">
                 Get updates on new swipe pages and articles!

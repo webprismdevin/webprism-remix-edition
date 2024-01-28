@@ -51,7 +51,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return json(
     {
-      message: "Success",
+      message: "Thanks for joining us!",
       status: 200,
     },
     {

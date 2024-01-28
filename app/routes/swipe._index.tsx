@@ -17,7 +17,9 @@ import { useQuery } from "~/sanity/loader";
 import { loadQuery } from "~/sanity/loader.server";
 import { isStegaEnabled } from "~/sanity/projectDetails";
 
-type Swipe = {};
+type Swipe = {
+  _id: string;
+};
 
 export const meta = () => {
   return [
@@ -31,6 +33,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const searchQuery = url.searchParams.get("q") ?? "*";
   const viewMode = url.searchParams.get("viewMode") ?? "grid";
+  const page: number = Number(url.searchParams.get("page")) ?? 1;
+
+  const pageSize = 6;
+
+  const startIndex: number = (page - 1) * pageSize;
+  const endIndex: number = page + pageSize;
 
   const perspective = stegaEnabled ? "previewDrafts" : "published";
 
@@ -38,6 +46,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     SWIPE_QUERY,
     {
       q: searchQuery == "" ? "*" : searchQuery.toLowerCase() ?? "*",
+      startIndex,
+      endIndex,
     },
     { perspective }
   );
@@ -46,6 +56,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     initial,
     searchQuery,
     viewMode: viewMode as ViewMode,
+    page,
   });
 }
 
@@ -68,7 +79,9 @@ export default function Swipe() {
   return (
     <>
       <div className="md:hidden p-5">
-        <h1 className="font-heading text-4xl text-right">Sites that inspire us</h1>
+        <h1 className="font-heading text-4xl text-right">
+          Sites that inspire us
+        </h1>
       </div>
       <Form
         preventScrollReset={true}
@@ -150,7 +163,14 @@ export default function Swipe() {
   );
 }
 
-const GridView = ({ data, layout }: { data: Swipe[]; layout: ViewMode }) => {
+//  still need to finish pagination
+type GridViewProps = {
+  data: Swipe[];
+  layout: ViewMode;
+  paginate?: () => void;
+};
+
+const GridView = ({ data, layout, paginate }: GridViewProps) => {
   const viewMode = () => {
     switch (layout) {
       case "grid":
@@ -203,7 +223,10 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
         )}
       >
         <img
-          className={cn("object-cover aspect-video w-full relative", layout == "list" && "min-w-full min-h-full")}
+          className={cn(
+            "object-cover aspect-video w-full relative",
+            layout == "list" && "min-w-full min-h-full"
+          )}
           src={urlFor(swipe.main).width(400).url()}
           srcSet={`
             ${urlFor(swipe.main).width(400).url()} 400w,
@@ -243,7 +266,14 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
   );
 };
 
-const SWIPE_QUERY = groq`*[_type == "swipe" && (title match $q || keywords[] match $q)  && !(_id in path('drafts.**')) ]{
+const SWIPE_QUERY = groq`*[
+    _type == "swipe" 
+    && (title match $q || keywords[] match $q) 
+    && !(_id in path('drafts.**'))
+  ] | order(title asc) {
     ...,
     "tags": tags[]->title
 }`;
+
+// filter saved
+// | order(_id) [$startIndex...$endIndex]

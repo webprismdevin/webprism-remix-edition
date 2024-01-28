@@ -28,8 +28,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     audienceId: "4c0b84d5-bc07-430b-ab93-a2e42ca3e6c3",
   });
 
-  console.log({ data });
-
+  
   if (error) {
     return json(
       {

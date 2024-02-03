@@ -25,7 +25,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     email,
     firstName: name,
     unsubscribed: false,
-    audienceId: "4c0b84d5-bc07-430b-ab93-a2e42ca3e6c3",
+    audienceId: process.env.RESEND_AUDIENCE_ID ?? "d6dac100-587e-48e9-a85b-08ef9be29680",
   });
 
   

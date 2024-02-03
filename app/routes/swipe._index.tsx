@@ -18,7 +18,16 @@ import { loadQuery } from "~/sanity/loader.server";
 import { isStegaEnabled } from "~/sanity/projectDetails";
 
 type Swipe = {
-  _id: string;
+  sites: [
+    {
+      _id: string;
+    }
+  ];
+  elementTags: [
+    {
+      title: string;
+    }
+  ];
 };
 
 export const meta = () => {
@@ -42,7 +51,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const perspective = stegaEnabled ? "previewDrafts" : "published";
 
-  const { data: initial } = await loadQuery<Swipe[]>(
+  const { data: initial } = await loadQuery<Swipe>(
     SWIPE_QUERY,
     {
       q: searchQuery == "" ? "*" : searchQuery.toLowerCase() ?? "*",
@@ -65,7 +74,7 @@ type ViewMode = "grid" | "carousel" | "list";
 export default function Swipe() {
   const { initial, searchQuery, viewMode } = useLoaderData<typeof loader>();
 
-  const { data: live_data, loading } = useQuery<Swipe[]>(
+  const { data: live_data, loading } = useQuery<Swipe>(
     SWIPE_QUERY,
     {
       searchQuery: searchQuery == "" ? "*" : searchQuery.toLowerCase() ?? "*",
@@ -74,7 +83,7 @@ export default function Swipe() {
     { initial }
   );
 
-  const data = loading || !live_data ? initial : live_data;
+  const data = live_data ?? initial;
 
   return (
     <>
@@ -82,6 +91,14 @@ export default function Swipe() {
         <h1 className="font-heading text-4xl text-right">
           Sites that inspire us
         </h1>
+      </div>
+      <div className="flex bg-slate-200">
+        {data.elementTags.map((tag) => (
+          <Link
+            to={`/swipe/elements/${tag.title}`}
+            className="inline-block px-3 py-1 rounded-smtext-xs md:text-sm text-slate-500"
+          >{`#${tag.title}`}</Link>
+        ))}
       </div>
       <Form
         preventScrollReset={true}
@@ -149,7 +166,7 @@ export default function Swipe() {
           <input type="hidden" name="viewMode" value={viewMode} />
         </div>
       </Form>
-      <GridView data={data} layout={viewMode} />
+      <GridView data={data.sites} layout={viewMode} />
       <div className="p-10 md:p-20 bg-slate-100 mt-3">
         <div className="mb-3 text-center">
           <h3 className="font-heading text-2xl">
@@ -266,13 +283,18 @@ const SwipeCard = ({ swipe, layout }: { swipe: any; layout: ViewMode }) => {
   );
 };
 
-const SWIPE_QUERY = groq`*[
-    _type == "swipe" 
-    && (title match $q || keywords[] match $q) 
-    && !(_id in path('drafts.**'))
-  ] | order(title asc) {
-    ...,
-    "tags": tags[]->title
+const SWIPE_QUERY = groq`{
+  "sites": *[
+      _type == "swipe" 
+      && (title match $q || keywords[] match $q) 
+      && !(_id in path('drafts.**'))
+    ] | order(title asc) {
+      ...,
+      "tags": tags[]->title
+  },
+  "elementTags": *[_type == "elementTag"]{
+    title,
+  }
 }`;
 
 // filter saved

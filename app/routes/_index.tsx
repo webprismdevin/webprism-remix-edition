@@ -2,7 +2,6 @@ import { MetaFunction } from "@remix-run/react";
 import { BentoGrid, BentoGridItem } from "~/components/BentoGrid";
 import { HeroParallax } from "~/components/HeroParallax";
 import { TextGenerateEffect } from "~/components/TextGenerateEffect";
-import { StickyScroll } from "~/components/StickyScrollReveal";
 
 import {
   IconArrowWaveRightUp,

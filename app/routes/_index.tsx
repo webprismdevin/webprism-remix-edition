@@ -81,7 +81,7 @@ export default function Index() {
           ))}
         </BentoGrid>
       </div>
-      <div className="p-8 md:p-20">
+      <div className="px-8 md:px-20">
         <TestimonialsCarousel />
       </div>
       <div className="p-8 md:p-20">
@@ -152,7 +152,7 @@ const items = [
 
 // main statement
 const impact_statement =
-  "We believe the best told brand stories win. Winning brands are unapologetic about who they are, how they got there, and where they're going.";
+  "Winning brands are unapologetic about who they are, how they got there, and where they're going.";
 
 // hero parallax items
 const products = [

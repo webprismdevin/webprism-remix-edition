@@ -41,12 +41,12 @@ const TestimonialComponent = () => {
   };
 
   // Cycle testimonials every X seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((current) => (current + 1) % testimonials.length);
-    }, 5000); // Change the testimonial every 5 seconds
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setIndex((current) => (current + 1) % testimonials.length);
+  //   }, 7000); // Change the testimonial every 5 seconds
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div className="w-full h-full flex flex-col items-start justify-center relative">

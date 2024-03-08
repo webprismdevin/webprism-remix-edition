@@ -103,6 +103,7 @@ export default function App() {
         > */}
         <Outlet />
         {/* </Layout> */}
+        <Footer />
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
@@ -120,6 +121,18 @@ export default function App() {
     </html>
   );
 }
+
+const Footer = () => {
+  return (
+    <div className="h-96 relative overflow-hidden">
+      <div className="relative z-20 text-white p-8 md:p-20 md:pb-8 flex justify-center items-end h-full">
+        <div>© WEBPRISM. {new Date().getFullYear()}</div>
+      </div>
+      <div className="w-full h-full absolute top-0 left-0 z-10 bg-black/70" />
+      <img src="/footer.jpg" className="absolute bottom-0 h-full md:w-full z-0 object-cover" />
+    </div>
+  );
+};
 
 // const Layout = ({ children, menu }: { children: ReactNode; menu: any[] }) => {
 //   return (

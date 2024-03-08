@@ -7,9 +7,6 @@ import {
   MotionValue,
 } from "framer-motion";
 import { Link } from "@remix-run/react";
-import { urlFor } from "~/sanity/client";
-import { SanityImageAssetDocument } from "@sanity/client";
-import Body from "~/sanity-modules/PortableText";
 
 export const HeroParallax = ({
   products,
@@ -58,7 +55,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="bg-black/95 h-[220vh] md:h-[420vh] xl:h-[320vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="bg-black/95 h-[220vh] md:h-[420vh] xl:h-[360vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div

@@ -17,7 +17,7 @@ import { IconLoader2 } from "@tabler/icons-react";
 
 // Define your form schema
 export const contactFormSchema = z.object({
-  fullName: z.string().min(1, "Full name is required"),
+  firstName: z.string().min(1, "First name is required"),
   emailAddress: z.string().email("Invalid email address"),
   brandUrl: z.string().url("Invalid URL"),
   whatAreYouLookingFor: z.enum([
@@ -47,9 +47,9 @@ export const action: ActionFunction = async ({ request }) => {
   const { data, error } = await resend.emails.send({
     from: "Website Form Submission <website@webprism.co>",
     to: ["devin@webprism.co"],
-    subject: `👋 Website submission from ${result.data.fullName}`,
+    subject: `👋 Website submission from ${result.data.firstName}`,
     html: `<div>
-      <div>Name: ${result.data.fullName}</div>
+      <div>Name: ${result.data.firstName}</div>
       <div>Email: ${result.data.emailAddress}</div>
       <div>Brand URL: ${result.data.brandUrl}</div>
       <div>What they're looking for: ${result.data.whatAreYouLookingFor}</div>
@@ -71,12 +71,12 @@ export function ContactForm({ action }: { action?: string }) {
       className="grid gap-cols-1 gap-4"
     >
       <div>
-        <Label htmlFor="fullName">Full Name</Label>
+        <Label htmlFor="firstName">First Name</Label>
         <Input
           type="text"
-          name="fullName"
-          id="fullName"
-          placeholder="John Wick"
+          name="firstName"
+          id="firstName"
+          placeholder="John"
         />
         {errors?.fullName && <p>{errors.fullName}</p>}
       </div>

@@ -4,18 +4,10 @@ import { HeroParallax } from "~/components/HeroParallax";
 import { TextGenerateEffect } from "~/components/TextGenerateEffect";
 
 import {
-  IconArrowWaveRightUp,
-  IconBoxAlignRightFilled,
-  IconBoxAlignTopLeft,
   IconBuildingStore,
-  IconClipboardCopy,
   IconCompass,
-  IconFileBroken,
   IconFileInfo,
-  IconLayoutBoardSplit,
   IconMailOpened,
-  IconSignature,
-  IconTableColumn,
 } from "@tabler/icons-react";
 
 import {
@@ -56,47 +48,54 @@ export default function Index() {
   return (
     <div>
       <HeroParallax products={products} />
-      <div
-        className="pt-16 pb-8 md:pt-40 md:pb-20 px-8 md:px-20"
-        ref={text_ref}
-      >
-        {/* update to only start when in view */}
-        <TextGenerateEffect
-          key={isInView ? 0 : 1}
-          words={isInView ? impact_statement : ""}
-          size="h2"
+      <div className="bg-white">
+        <div
+          className="pt-16 pb-8 md:pt-40 md:pb-20 px-8 md:px-20"
+          ref={text_ref}
+        >
+          <TextGenerateEffect
+            key={isInView ? 0 : 1}
+            words={isInView ? impact_statement : ""}
+            size="h2"
+          />
+        </div>
+        <div className="p-8 md:p-20">
+          <BentoGrid>
+            {items.map((item, i) => (
+              <BentoGridItem
+                key={i}
+                title={item.title}
+                description={item.description}
+                header={item.header}
+                icon={item.icon}
+                className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+              />
+            ))}
+          </BentoGrid>
+        </div>
+        <div className="px-8 md:px-20">
+          <TestimonialsCarousel />
+        </div>
+      </div>
+      <div className="relative overflow-hidden bg-black">
+        <img
+          src="footer.jpg"
+          className="object-cover absolute top-0 z-0 w-full md:w-auto md:h-full"
         />
-      </div>
-      <div className="p-8 md:p-20">
-        <BentoGrid>
-          {items.map((item, i) => (
-            <BentoGridItem
-              key={i}
-              title={item.title}
-              description={item.description}
-              header={item.header}
-              icon={item.icon}
-              className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-            />
-          ))}
-        </BentoGrid>
-      </div>
-      <div className="px-8 md:px-20">
-        <TestimonialsCarousel />
-      </div>
-      <div className="p-8 md:p-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        <div className="w-full h-full absolute top-0 left-0 z-10 bg-gradient-to-b from-white to-white/70" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto relative z-20 p-8 md:px-20 md:py-40">
           <Card>
             <CardHeader>
               <CardTitle>Get in touch</CardTitle>
-              <CardDescription>Card Description</CardDescription>
+              <CardDescription>You'll get an email after completing this form.</CardDescription>
             </CardHeader>
             <CardContent>
               <ContactForm action="/contact" />
             </CardContent>
           </Card>
           <div className="max-w-xl">
-            <Accordion type="single" collapsible>
+            <CardTitle className="my-6">Questions? Answers.</CardTitle>
+            <Accordion type="single" collapsible className="backdrop-blur-sm">
               {faqs.map((faq) => (
                 <AccordionItem key={faq.value} value={faq.value}>
                   <AccordionTrigger>{faq.question}</AccordionTrigger>
@@ -106,6 +105,7 @@ export default function Index() {
             </Accordion>
           </div>
         </div>
+        <p className="absolute bottom-4 left-0 w-full text-center z-20 text-slate-500">© WEBPRISM. {new Date().getFullYear()}. Everett, WA.</p>
       </div>
     </div>
   );
@@ -119,13 +119,15 @@ const Skeleton = () => (
 const items = [
   {
     title: "Shopify Themes",
-    description: "Go further than the template with brand-centric design with a focus on conversion.",
+    description:
+      "Go further than the template with brand-centric design with a focus on conversion.",
     header: <Skeleton />,
     icon: <IconBuildingStore className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Shopify Hydrogen",
-    description: "Completely custom online stores that your competitors can't keep up with.",
+    description:
+      "Completely custom online stores that your competitors can't keep up with.",
     header: <Skeleton />,
     icon: <HydrogenIcon className="h-4 w-4 text-neutral-500" />,
   },
@@ -144,7 +146,8 @@ const items = [
   },
   {
     title: "Email Design",
-    description: "Fast, clean, conversion-optimized emails to stand out in your customer's inbox.",
+    description:
+      "Fast, clean, conversion-optimized emails to stand out in your customer's inbox.",
     header: <Skeleton />,
     icon: <IconMailOpened className="h-4 w-4 text-neutral-500" />,
   },
@@ -216,14 +219,37 @@ const products = [
 // sort of self explanator
 const faqs = [
   {
+    value: "item-3",
+    question: "What industries have you worked with?",
+    answer:
+      "We have experience in apparel, footwear, cosmetics, health & wellness, sweepstakes and wine. We like to work in industries that we either have specific knowledge, or a deep interest. That being said, we love new challenges - it all comes down to values alignment to us.",
+  },
+  {
     value: "item-1",
     question: "What size brands do you work with?",
-    answer: "We've worked with brands from $100k to $15M in revenue.",
+    answer: "We've worked with fledgling brands just getting started up to brands doing $15M+ in annual revenue.",
   },
   {
     value: "item-2",
     question: "Why wouldn't we hire a freelancer instead?",
     answer:
-      "Many clients have come to use after the freelancer phase - once they need a long term partner. Someone who's invested in their success. Our clients aren't next month's rent. They're partners, who's success is our own.",
+      "Finding a good freelancer usually takes going through a few not-so-good ones. Even once you find the right one, they still need to be managed - which turns you into the project manager. Our roster of partners and vetted contractors is at your disposal when you work with us, and we manage them, so you don't have to.",
   },
+  {
+    value: "item-5",
+    question: "What does it cost to work with you?",
+    answer:
+      "Landing pages start at $950. Brand strategy work ranges from $2,500 - $7,500, based on your stage of your business. Shopify themes start at $7500. Custom storefronts (Hydrogen) start at $25,000.",
+  },
+  {
+    value: "item-4",
+    question: "What's your process like?",
+    answer:
+      "We have two approaches to creative work. Our 'Full-scope' process is what you'd expect: in-depth onboarding, concepts, design reviews and revisions, and ultimately approval and deliver. For projects that don't have the luxury of time, our 'Straight-shot' process cuts right to the point - we agree on the goal, and you trust us to deliver based on best practices, and your brand guidelines. Small edits, no big revisions.",
+  },
+  {
+    value: "item-6",
+    question: "How soon can you start?",
+    answer: "We can start most projects within 7 business days."
+  }
 ];

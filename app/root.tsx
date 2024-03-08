@@ -96,14 +96,8 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body>
-        {/* <Layout
-          menu={loading || !data ? initial?.menu : data?.menu}
-          isHome={isHome}
-        > */}
+      <body className="bg-black">
         <Outlet />
-        {/* </Layout> */}
-        <Footer />
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{

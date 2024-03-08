@@ -152,7 +152,7 @@ const items = [
 
 // main statement
 const impact_statement =
-  "Sunt est veniam commodo labore commodo sint anim dolore labore sunt labore.";
+  "We believe the best told brand stories win. Winning brands are unapologetic about who they are, how they got there, and where they're going.";
 
 // hero parallax items
 const products = [

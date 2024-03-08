@@ -58,7 +58,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="bg-black/95 h-[240vh] md:h-[360vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="bg-black/95 h-[220vh] md:h-[420vh] xl:h-[320vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -105,13 +105,11 @@ export const HeroParallax = ({
 export const Header = () => {
   return (
     <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-heading text-white">
+      <h1 className="text-5xl md:text-7xl font-heading text-white">
         Design for Shopify Brands on a Mission
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200">
-        We build beautiful products with the latest technologies and frameworks.
-        We are a team of passionate developers and designers that love to build
-        amazing products.
+        We're a boutique creative agency that partners with brands to push through their next phase of growth. We design, build and optimize ecommerce websites and marketing for brands on Shopify. 
       </p>
     </div>
   );

@@ -7,8 +7,13 @@ import {
   IconArrowWaveRightUp,
   IconBoxAlignRightFilled,
   IconBoxAlignTopLeft,
+  IconBuildingStore,
   IconClipboardCopy,
+  IconCompass,
   IconFileBroken,
+  IconFileInfo,
+  IconLayoutBoardSplit,
+  IconMailOpened,
   IconSignature,
   IconTableColumn,
 } from "@tabler/icons-react";
@@ -33,6 +38,7 @@ import { ContactForm } from "./contact";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import TestimonialsCarousel from "~/components/Testimonials";
+import HydrogenIcon from "~/components/HydrogenIcon";
 
 export const meta: MetaFunction = () => {
   return [
@@ -112,48 +118,36 @@ const Skeleton = () => (
 // bento items
 const items = [
   {
-    title: "The Dawn of Innovation",
-    description: "Explore the birth of groundbreaking ideas and inventions.",
+    title: "Shopify Themes",
+    description: "Go further than the template with brand-centric design with a focus on conversion.",
     header: <Skeleton />,
-    icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
+    icon: <IconBuildingStore className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Digital Revolution",
-    description: "Dive into the transformative power of technology.",
+    title: "Shopify Hydrogen",
+    description: "Completely custom online stores that your competitors can't keep up with.",
     header: <Skeleton />,
-    icon: <IconFileBroken className="h-4 w-4 text-neutral-500" />,
+    icon: <HydrogenIcon className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Art of Design",
-    description: "Discover the beauty of thoughtful and functional design.",
+    title: "Landing Pages",
+    description: "Focused landing pages to accelerate your ad strategy.",
     header: <Skeleton />,
-    icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
+    icon: <IconFileInfo className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Power of Communication",
+    title: "Brand Strategy",
     description:
-      "Understand the impact of effective communication in our lives.",
+      "Uncover your brand's advantages, opportunities, and the path towards growth. We'll help you chart your path to continued growth, and execute it with you.",
     header: <Skeleton />,
-    icon: <IconTableColumn className="h-4 w-4 text-neutral-500" />,
+    icon: <IconCompass className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "The Pursuit of Knowledge",
-    description: "Join the quest for understanding and enlightenment.",
+    title: "Email Design",
+    description: "Fast, clean, conversion-optimized emails to stand out in your customer's inbox.",
     header: <Skeleton />,
-    icon: <IconArrowWaveRightUp className="h-4 w-4 text-neutral-500" />,
+    icon: <IconMailOpened className="h-4 w-4 text-neutral-500" />,
   },
-  // {
-  //   title: "The Joy of Creation",
-  //   description: "Experience the thrill of bringing ideas to life.",
-  //   header: <Skeleton />,
-  //   icon: <IconBoxAlignTopLeft className="h-4 w-4 text-neutral-500" />,
-  // },
-  // {
-  //   title: "The Spirit of Adventure",
-  //   description: "Embark on exciting journeys and thrilling discoveries.",
-  //   header: <Skeleton />,
-  //   icon: <IconBoxAlignRightFilled className="h-4 w-4 text-neutral-500" />,
-  // },
 ];
 
 // main statement

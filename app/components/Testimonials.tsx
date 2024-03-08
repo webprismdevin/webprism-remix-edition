@@ -1,14 +1,13 @@
 export default function TestimonialsCarousel() {
   return (
-    <div className="flex md:h-[32rem] max-w-7xl mx-auto">
-      <div className="w-1/2 flex flex-col justify-center">
+    <div className="flex flex-col md:flex-row md:h-[32rem] max-w-7xl mx-auto">
+      <div className="w-full md:w-1/2 flex flex-col justify-center">
         <div>
           <h2 className="text-2xl mb-4">TRUSTED PARTNERS</h2>
           <h1 className="text-6xl font-heading mb-4">FROM OUR CLIENTS</h1>
         </div>
       </div>
-
-      <div className="w-1/2 flex flex-col justify-center items-center bg-white">
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white">
         <TestimonialComponent />
       </div>
     </div>
@@ -20,45 +19,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 
 const testimonials = [
-  // ... array of testimonial objects
   {
     id: 1,
     quote:
-      "Reprehenderit nostrud dolor magna irure consectetur commodo ex laboris cillum quis. Anim sunt tempor veniam duis ad cillum magna exercitation. Eu esse enim labore nisi magna mollit Lorem eu occaecat ipsum excepteur.",
-    author: "Keanu Reeves",
+      "We hired WEBPRISM to help with our company's rebranding efforts. WEBPRISM is smart and kind and just the kind of partner we were looking for to work with…and we couldn't imagine doing this without them.",
+    author: "Tina Tor, CFO @ Tor Salon & Spa Products",
   },
   {
     id: 2,
     quote:
-      "The ultimate price of freedom is the willingness to face the fear of the unknown.",
-    author: "Bodhi",
-  },
-  {
-    id: 3,
-    quote:
-      "Fear causes hesitation, and hesitation will cause your worst fears to come true.",
-    author: "Bodhi",
-  },
-  {
-    id: 4,
-    quote: "It's not tragic to die doing what you love.",
-    author: "Bodhi",
-  },
-  {
-    id: 5,
-    quote:
-      "If you want the ultimate, you've got to be willing to pay the ultimate price.",
-    author: "Bodhi",
-  },
-  {
-    id: 6,
-    quote: "Life sure has a sick sense of humor, doesn't it?",
-    author: "Johnny Utah",
-  },
-  {
-    id: 7,
-    quote: "You gotta go down. You gotta go down big.",
-    author: "Bodhi",
+      "We had many custom features we wanted to see in the new site and lofty goals in terms of performance (speed, core web vitals, etc), and Devin and his team hit them all. In the 30 days post launch compared to the same timeframe the previous year, we saw total sales increase 239%, conversion rate increase 75%, total orders increase 235%, and store sessions increase by 114%.",
+    author: "Ryann Vargo, COO @ Freedom Fatigues",
   },
 ];
 

@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/select";
 import { ActionFunction, json } from "@remix-run/node";
 import { useFetcher } from "@remix-run/react";
+import { Resend } from "resend";
+import { IconLoader2 } from "@tabler/icons-react";
 
 // Define your form schema
 export const contactFormSchema = z.object({
@@ -29,6 +31,8 @@ export const contactFormSchema = z.object({
 });
 
 export const action: ActionFunction = async ({ request }) => {
+  const resend = new Resend(process.env.RESEND_API_TOKEN);
+
   const formData = await request.formData();
   const result = contactFormSchema.safeParse(Object.fromEntries(formData));
   if (!result.success) {
@@ -37,6 +41,22 @@ export const action: ActionFunction = async ({ request }) => {
       { status: 400 }
     );
   }
+
+  console.log({ result });
+
+  const { data, error } = await resend.emails.send({
+    from: "Website Form Submission <website@webprism.co>",
+    to: ["devin@webprism.co"],
+    subject: `👋 Website submission from ${result.data.fullName}`,
+    html: `<div>
+      <div>Name: ${result.data.fullName}</div>
+      <div>Email: ${result.data.emailAddress}</div>
+      <div>Brand URL: ${result.data.brandUrl}</div>
+      <div>What they're looking for: ${result.data.whatAreYouLookingFor}</div>
+      <div>How they heard about us: ${result.data.howDidYouHearAboutUs}</div>
+    </div>`,
+  });
+
   return json({ success: "Thank you for your submission!" }, { status: 200 });
 };
 
@@ -76,7 +96,7 @@ export function ContactForm({ action }: { action?: string }) {
           type="url"
           name="brandUrl"
           id="brandUrl"
-          placeholder="The High Table"
+          placeholder="thehightable.org"
         />
         {errors?.brandUrl && <p>{errors.brandUrl}</p>}
       </div>
@@ -106,7 +126,15 @@ export function ContactForm({ action }: { action?: string }) {
         />
         {errors?.howDidYouHearAboutUs && <p>{errors.howDidYouHearAboutUs}</p>}
       </div>
-      <Button type="submit">Submit</Button>
+      <Button type="submit" disabled={fetcher.state == "submitting"}>
+        <span>Submit</span>
+        {fetcher.state == "submitting" && (
+          <IconLoader2 className="mr-2 h-4 w-4 animate-spin" />
+        )}
+      </Button>
+      {fetcher.data?.success && (
+        <p>You'll get an email from us shortly 🙂</p>
+      )}
     </fetcher.Form>
   );
 }

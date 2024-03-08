@@ -87,7 +87,9 @@ export default function Index() {
           <Card>
             <CardHeader>
               <CardTitle>Get in touch</CardTitle>
-              <CardDescription>You'll get an email after completing this form.</CardDescription>
+              <CardDescription>
+                You'll get an email after completing this form.
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ContactForm action="/contact" />
@@ -105,7 +107,9 @@ export default function Index() {
             </Accordion>
           </div>
         </div>
-        <p className="absolute bottom-4 left-0 w-full text-center z-20 text-slate-500">© WEBPRISM. {new Date().getFullYear()}. Everett, WA.</p>
+        <p className="absolute bottom-4 left-0 w-full text-center z-20 text-slate-500">
+          © WEBPRISM. {new Date().getFullYear()}. Everett, WA.
+        </p>
       </div>
     </div>
   );
@@ -113,6 +117,12 @@ export default function Index() {
 
 const Skeleton = () => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100"></div>
+);
+
+const BentoImage = ({ src }: { src: string }) => (
+  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 overflow-hidden">
+    <img src={src} className="object-cover w-full h-full" />
+  </div>
 );
 
 // bento items
@@ -148,7 +158,7 @@ const items = [
     title: "Email Design",
     description:
       "Fast, clean, conversion-optimized emails to stand out in your customer's inbox.",
-    header: <Skeleton />,
+    header: <BentoImage src={"/bento/emails.jpeg"} />,
     icon: <IconMailOpened className="h-4 w-4 text-neutral-500" />,
   },
 ];
@@ -227,7 +237,8 @@ const faqs = [
   {
     value: "item-1",
     question: "What size brands do you work with?",
-    answer: "We've worked with fledgling brands just getting started up to brands doing $15M+ in annual revenue.",
+    answer:
+      "We've worked with fledgling brands just getting started up to brands doing $15M+ in annual revenue.",
   },
   {
     value: "item-2",
@@ -250,6 +261,6 @@ const faqs = [
   {
     value: "item-6",
     question: "How soon can you start?",
-    answer: "We can start most projects within 7 business days."
-  }
+    answer: "We can start most projects within 7 business days.",
+  },
 ];

@@ -131,7 +131,7 @@ const items = [
     title: "Shopify Themes",
     description:
       "Go further than the template with brand-centric design and a focus on conversion.",
-    header: <BentoImage src={"/bento/themes.jpeg"} />,
+    header: <BentoImage src={"/bento/themes.png"} />,
     icon: <IconBuildingStore className="h-4 w-4 text-neutral-500" />,
   },
   {
@@ -158,7 +158,7 @@ const items = [
     title: "Email Design",
     description:
       "Fast, clean, conversion-optimized emails to stand out in your customer's inbox.",
-    header: <BentoImage src={"/bento/emails.jpeg"} />,
+    header: <BentoImage src={"/bento/email.png"} />,
     icon: <IconMailOpened className="h-4 w-4 text-neutral-500" />,
   },
 ];

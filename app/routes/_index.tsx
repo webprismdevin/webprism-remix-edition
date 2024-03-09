@@ -73,11 +73,11 @@ export default function Index() {
             ))}
           </BentoGrid>
         </div>
-        <div className="px-8 md:px-20">
+        <div className="pt-8 pb-16 md:py-0 px-8 md:px-20">
           <TestimonialsCarousel />
         </div>
       </div>
-      <div className="relative overflow-hidden bg-black">
+      <div className="relative overflow-hidden bg-black pb-12">
         <img
           src="footer.jpg"
           className="object-cover absolute top-0 z-0 w-full md:w-auto md:h-full"
@@ -121,7 +121,7 @@ const Skeleton = () => (
 
 const BentoImage = ({ src }: { src: string }) => (
   <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-200 dark:from-neutral-900 dark:to-neutral-800 to-neutral-100 overflow-hidden">
-    <img src={src} className="object-cover w-full h-full" />
+    <img src={src} className="aspect-[2/1] md:apsect-auto object-cover w-full h-full object-top" />
   </div>
 );
 
@@ -130,8 +130,8 @@ const items = [
   {
     title: "Shopify Themes",
     description:
-      "Go further than the template with brand-centric design with a focus on conversion.",
-    header: <Skeleton />,
+      "Go further than the template with brand-centric design and a focus on conversion.",
+    header: <BentoImage src={"/bento/themes.jpeg"} />,
     icon: <IconBuildingStore className="h-4 w-4 text-neutral-500" />,
   },
   {
@@ -144,14 +144,14 @@ const items = [
   {
     title: "Landing Pages",
     description: "Focused landing pages to accelerate your ad strategy.",
-    header: <Skeleton />,
+    header: <BentoImage src={"/bento/landing_pages.png"} />,
     icon: <IconFileInfo className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Brand Strategy",
     description:
       "Uncover your brand's advantages, opportunities, and the path towards growth. We'll help you chart your path to continued growth, and execute it with you.",
-    header: <Skeleton />,
+    header: <BentoImage src={"/bento/brand_strategy.jpg"} />,
     icon: <IconCompass className="h-4 w-4 text-neutral-500" />,
   },
   {
@@ -164,8 +164,7 @@ const items = [
 ];
 
 // main statement
-const impact_statement =
-  "Winning brands are unapologetic about who they are, how they got there, and where they're going.";
+const impact_statement = "We're a boutique creative agency that designs, builds and optimizes ecommerce websites on Shopify.";
 
 // hero parallax items
 const products = [

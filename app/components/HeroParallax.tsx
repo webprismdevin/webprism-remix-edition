@@ -106,7 +106,8 @@ export const Header = () => {
         Design for Shopify Brands on a Mission
       </h1>
       <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200">
-        We're a boutique creative agency that partners with brands to push through their next phase of growth. We design, build and optimize ecommerce websites and marketing for brands on Shopify. 
+        Winning brands are unapologetic about who they are, how they got there,
+        and where they're going. We help brands win.
       </p>
     </div>
   );

@@ -3,8 +3,8 @@ export default function TestimonialsCarousel() {
     <div className="flex flex-col md:flex-row md:h-[32rem] max-w-7xl mx-auto">
       <div className="w-full md:w-1/2 flex flex-col justify-center">
         <div>
-          <h2 className="text-2xl mb-4">TRUSTED PARTNERS</h2>
-          <h1 className="text-6xl font-heading mb-4">FROM OUR CLIENTS</h1>
+          <h2 className="text-xl md:text-2xl mb-4">TRUSTED PARTNERS</h2>
+          <h1 className="text-5xl md:text-6xl font-heading mb-4">FROM OUR CLIENTS</h1>
         </div>
       </div>
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center bg-white">
@@ -59,7 +59,7 @@ const TestimonialComponent = () => {
           transition={{ duration: 1 }}
           className=""
         >
-          <p className="text-xl font-semibold mb-4">
+          <p className="text-lg md:text-xl font-semibold mb-4 text-justify md:text-left">
             {testimonials[index].quote}
           </p>
           <p className="font-medium">{testimonials[index].author}</p>
@@ -67,7 +67,7 @@ const TestimonialComponent = () => {
       </AnimatePresence>
       <button
         onClick={handleNext}
-        className="absolute right-0 top-3/4 bg-white p-2 rounded-full shadow-lg cursor-pointer"
+        className="absolute right-0 top-full md:top-3/4 bg-white p-2 rounded-full shadow-lg cursor-pointer"
       >
         <IconArrowNarrowRight color="black" />
       </button>

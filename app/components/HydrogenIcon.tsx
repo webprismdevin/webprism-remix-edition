@@ -25,8 +25,8 @@ export default function HydrogenIcon({ className }: { className?: string }) {
           y2="46.16"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#0DA3D3" />
-          <stop offset="1" stop-color="#27245D" />
+          <stop stopColor="#0DA3D3" />
+          <stop offset="1" stopColor="#27245D" />
         </linearGradient>
       </defs>
     </svg>

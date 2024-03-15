@@ -77,10 +77,10 @@ export default function Index() {
           <TestimonialsCarousel />
         </div>
       </div>
-      <div className="relative overflow-hidden bg-black pb-12">
+      <div className="relative overflow-hidden bg-black pb-[30rem] md:pb-12">
         <img
           src="footer.jpg"
-          className="object-cover absolute top-0 z-0 w-full md:w-auto md:h-full"
+          className="object-cover absolute bottom-0 h-[120vh] md:top-0 z-0 md:w-auto md:h-full"
         />
         <div className="w-full h-full absolute top-0 left-0 z-10 bg-gradient-to-b from-white to-white/70" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto relative z-20 p-8 md:px-20 md:py-40">

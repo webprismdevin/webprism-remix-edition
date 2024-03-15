@@ -28,7 +28,7 @@ const testimonials = [
   {
     id: 2,
     quote:
-      "We had many custom features we wanted to see in the new site and lofty goals in terms of performance (speed, core web vitals, etc), and Devin and his team hit them all. In the 30 days post launch compared to the same timeframe the previous year, we saw total sales increase 239%, conversion rate increase 75%, total orders increase 235%, and store sessions increase by 114%.",
+      "We had many custom features we wanted to see in the new site and lofty goals in terms of performance (speed, core web vitals, etc), and Devin and his team hit them all. In the 30 days post launch (compared to...the previous year) we saw total sales increase 239%, conversion rate increase 75%, total orders increase 235%.",
     author: "Ryann Vargo, COO @ Freedom Fatigues",
   },
 ];
@@ -59,10 +59,10 @@ const TestimonialComponent = () => {
           transition={{ duration: 1 }}
           className=""
         >
-          <p className="text-lg md:text-xl font-semibold mb-4 text-justify md:text-left">
-            {testimonials[index].quote}
+          <p className="text-lg md:text-xl leading-loose mb-4 text-justify md:text-left">
+            "{testimonials[index].quote}"
           </p>
-          <p className="font-medium">{testimonials[index].author}</p>
+          <p className="font-heading">{testimonials[index].author}</p>
         </motion.div>
       </AnimatePresence>
       <button

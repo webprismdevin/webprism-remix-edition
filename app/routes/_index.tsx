@@ -249,7 +249,7 @@ const faqs = [
     value: "item-5",
     question: "What does it cost to work with you?",
     answer:
-      "Landing pages start at $950. Brand strategy work ranges from $2,500 - $7,500, based on your stage of your business. Shopify themes start at $7500. Custom storefronts (Hydrogen) start at $25,000.",
+      "Design work is always based on scope, but we can provide a starting point here. Landing pages start at $950. Brand strategy work ranges from $2,500 - $7,500, based on your stage of your business. Shopify themes start at $7500. Custom storefronts (Hydrogen) start at $25,000.",
   },
   {
     value: "item-4",

@@ -131,34 +131,34 @@ const items = [
     title: "Shopify Themes",
     description:
       "Go further than the template with brand-centric design and a focus on conversion.",
-    header: <BentoImage src={"/bento/themes.png"} />,
+    header: <BentoImage src="/gradients/01.webp" />,
     icon: <IconBuildingStore className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Shopify Hydrogen",
     description:
       "Completely custom online stores that your competitors can't keep up with.",
-    header: <Skeleton />,
+    header: <BentoImage src="/gradients/03.webp" />,
     icon: <HydrogenIcon className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Landing Pages",
     description: "Focused landing pages to accelerate your ad strategy.",
-    header: <BentoImage src={"/bento/landing_pages.png"} />,
+    header: <BentoImage src="/gradients/05.webp" />,
     icon: <IconFileInfo className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Brand Strategy",
     description:
       "Uncover your brand's advantages, opportunities, and the path towards growth. We'll help you chart your path to continued growth, and execute it with you.",
-    header: <BentoImage src={"/bento/brand_strategy.jpg"} />,
+    header: <BentoImage src="/gradients/17.webp" />,
     icon: <IconCompass className="h-4 w-4 text-neutral-500" />,
   },
   {
     title: "Email Design",
     description:
       "Fast, clean, conversion-optimized emails to stand out in your customer's inbox.",
-    header: <BentoImage src={"/bento/email.png"} />,
+    header: <BentoImage src="/gradients/35.webp" />,
     icon: <IconMailOpened className="h-4 w-4 text-neutral-500" />,
   },
 ];

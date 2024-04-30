@@ -9,7 +9,13 @@ export default function Portfolio() {
           <IconArrowLeft /> Back to home
         </Link>
       </div>
-      <div className="relative h-full text-white max-w-[1200px] mx-auto py-20 space-y-10">
+      <div className="block md:hidden h-full text-white max-w-[1200px] mx-auto py-20 px-5 text-center">
+        <h2  className="text-2xl font-heading uppercase font-bold">Mobile browsers don't like Figma embeds 😢</h2>
+        <a className="text-cyan-500 mt-10 block" href="https://www.figma.com/file/PIl7WC6I3e2C6ia7Hgwf3S/Our-Portfolio?type=design&node-id=0%3A1&mode=design&t=by1sgsi916eVVua9-1">
+          Click here to see our work →
+        </a>
+      </div>
+      <div className="relative h-full text-white max-w-[1200px] mx-auto py-20 space-y-10 hidden md:block">
         <section>
           <div>
             <h2 className="text-4xl md:text-6xl font-bold font-heading uppercase text-center mb-4">

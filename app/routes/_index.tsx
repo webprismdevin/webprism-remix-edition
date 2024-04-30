@@ -83,7 +83,7 @@ export default function Index() {
           className="object-cover absolute bottom-0 h-[120vh] md:top-0 z-0 md:w-auto md:h-full"
         />
         <div className="w-full h-full absolute top-0 left-0 z-10 bg-gradient-to-b from-white to-white/70" />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto relative z-20 p-8 md:px-20 md:py-40">
+        <div id="contact" className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto relative z-20 p-8 md:px-20 md:py-40">
           <Card>
             <CardHeader>
               <CardTitle>Get in touch</CardTitle>

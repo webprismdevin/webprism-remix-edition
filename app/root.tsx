@@ -27,7 +27,7 @@ import { Menu } from "@headlessui/react";
 import { SpeedInsights } from "@vercel/speed-insights/remix";
 import { Analytics } from "@vercel/analytics/react";
 
-const VisualEditing = lazy(() => import("~/components/VisualEditing"));
+// const VisualEditing = lazy(() => import("~/components/VisualEditing"));
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -35,57 +35,57 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
-type SettingsType = {
-  menu: any[];
-};
+// type SettingsType = {
+//   menu: any[];
+// };
 
-const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
-  ...,
-  menu[]{
-    ...,
-    ${INTERNAL_LINK_FRAGMENT}
-  }
-}`;
+// const SETTINGS_QUERY = groq`*[_type == "settings"][0]{
+//   ...,
+//   menu[]{
+//     ...,
+//     ${INTERNAL_LINK_FRAGMENT}
+//   }
+// }`;
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const stegaEnabled = isStegaEnabled(request.url);
+  // const stegaEnabled = isStegaEnabled(request.url);
 
-  const isHome = new URL(request.url).pathname === "/";
+  // const isHome = new URL(request.url).pathname === "/";
 
-  console.log(request.url);
+  // console.log(request.url);
 
-  const perspective = stegaEnabled ? "previewDrafts" : "published";
+  // const perspective = stegaEnabled ? "previewDrafts" : "published";
 
-  const { data: initial } = await loadQuery<SettingsType>(
-    SETTINGS_QUERY,
-    {},
-    {
-      perspective,
-    }
-  );
+  // const { data: initial } = await loadQuery<SettingsType>(
+  //   SETTINGS_QUERY,
+  //   {},
+  //   {
+  //     perspective,
+  //   }
+  // );
 
   return json({
-    stegaEnabled,
-    initial,
-    isHome,
-    ENV: {
-      SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
-      SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
-      SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
-      SANITY_STUDIO_API_VERSION: apiVersion,
-    },
+    // stegaEnabled,
+    // initial,
+    // isHome,
+    // ENV: {
+    //   SANITY_STUDIO_PROJECT_ID: process.env.SANITY_STUDIO_PROJECT_ID,
+    //   SANITY_STUDIO_DATASET: process.env.SANITY_STUDIO_DATASET,
+    //   SANITY_STUDIO_URL: process.env.SANITY_STUDIO_URL,
+    //   SANITY_STUDIO_API_VERSION: apiVersion,
+    // },
   });
 };
 
 export default function App() {
-  const { ENV, stegaEnabled, initial, isHome } = useLoaderData<typeof loader>();
+  // const { ENV, stegaEnabled, initial, isHome } = useLoaderData<typeof loader>();
 
-  const { data, loading } = useQuery<typeof initial>(
-    SETTINGS_QUERY,
-    {},
-    // @ts-expect-error
-    { initial }
-  );
+  // const { data, loading } = useQuery<typeof initial>(
+  //   SETTINGS_QUERY,
+  //   {},
+  //   // @ts-expect-error
+  //   { initial }
+  // );
 
   return (
     <html lang="en">
@@ -99,16 +99,16 @@ export default function App() {
       <body className="bg-black">
         <Outlet />
         <ScrollRestoration />
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,
           }}
-        />
-        {stegaEnabled ? (
+        /> */}
+        {/* {stegaEnabled ? (
           <Suspense>
             <VisualEditing studioUrl={ENV.SANITY_STUDIO_URL!} />
           </Suspense>
-        ) : null}
+        ) : null} */}
         <Scripts />
         <LiveReload />
         <SpeedInsights />

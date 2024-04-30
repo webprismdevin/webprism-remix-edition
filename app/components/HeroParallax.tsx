@@ -7,6 +7,7 @@ import {
   MotionValue,
 } from "framer-motion";
 import { Link } from "@remix-run/react";
+import { Button } from "@/components/ui/button";
 
 export const HeroParallax = ({
   products,
@@ -101,14 +102,20 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full left-0 top-0 z-50">
       <h1 className="text-5xl md:text-7xl font-heading text-white">
         Design for Shopify Brands on a Mission
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200">
+      <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200 mb-8">
         Winning brands are unapologetic about who they are, how they got there,
         and where they're going. We help brands win.
       </p>
+      <Button asChild className="bg-white text-black mr-4">
+        <Link to="/#contact">Get In Touch</Link>
+      </Button>
+      <Button asChild className="bg-white text-black">
+        <Link to="/portfolio">See Our Work</Link>
+      </Button>
     </div>
   );
 };
